@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.shark.mapper.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.shark.model.Book" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="publishtime" property="publishtime" jdbcType="DATE" />
+    <result column="remain" property="remain" jdbcType="INTEGER" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="selectAllBooks" resultMap="BaseResultMap">
+    select * from book
+    <!--<if test="offset != null and limit != null">-->
+      <!--limit ${offset}, ${limit}-->
+    <!--</if>-->
+    order by id DESC
+  </select>
+  <!--获取用户预约书籍的id集合-->
+  <select id="selectUserBooks" parameterType="java.lang.String" resultType="java.lang.Integer">
+--     select book_id from user_book where user_id in (select id from user where username = 'zhuxin')
+  select book_id
+  from user_book,user
+  where username = 'zhuxin'   and user_book.user_id = user.id
+  </select>
+  <select id="countBooks" resultType="java.lang.Integer">
+  select count(*)
+  from book
+  </select>
+
+  <insert id="insertBook" parameterType="com.zx.shark.model.Book">
+    insert into book (name, author, company, publishtime, remain, total)
+    values (#{name},#{author},#{company},#{publishtime},#{remain},#{total})
+  </insert>
+
+  <delete id="deleteBook" parameterType="java.util.List">
+    delete from book
+    where id in 
+    <foreach collection="list" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+  
+  <!--存储借书人信息和书的信息-->
+  <insert id="insertUserBook" parameterType="com.zx.shark.model.UserBook">
+    insert  into user_book (user_id,book_id)
+    values (#{user_id},#{book_id})
+  </insert>
+
+
+  <!--修改书的信息，将书的剩余量减1-->
+  <update id="updateBookRemain" parameterType="java.lang.Integer">
+    UPDATE book
+    SET remain = (remain-1)
+    WHERE id = #{id}
+  </update>
+    <!--修改书的信息，将书的剩余量加1-->
+    <update id="rebackBookRemain" parameterType="java.lang.Integer">
+    UPDATE book
+    SET remain = (remain+1)
+    WHERE id = #{id}
+  </update>
+    <!--修改user_book，取消联系-->
+    <delete id="deleteUserBook" parameterType="com.zx.shark.model.UserBook">
+    delete  from user_book
+    where (user_id=#{user_id} and book_id=#{book_id})
+  </delete>
+
+</mapper>

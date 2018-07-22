@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/register.css" />
+</head>
+
+<body>
+    <div id="register_back">
+        <div id="box_back">
+            <div class="regis_box">用户名：
+                <input type="text" placeholder="请输入您的昵称" class="normal_input" id="username">
+            </div>
+            <div class="regis_box">邮&nbsp;&nbsp;&nbsp;箱：
+                <input type="email" placeholder="请输入您的常用邮箱" class="normal_input" id="email">
+            </div>
+            <div class="regis_box">密&nbsp;&nbsp;&nbsp;码：
+                <input type="password" placeholder="请输入6-16个字符" class="normal_input" id="password">
+            </div>
+            <div class="regis_box">确认密码：
+                <input type="password" placeholder="请再次输入您的密码" class="normal_input" id="sure_pass">
+            </div>
+            <div class="regis_box">验证码：
+                <input type="code" placeholder="请再次输入您的密码" class="normal_input" id="code">
+            </div>
+            <div class="regis_box">请点击：
+                <input type="button"  value="确认邮箱" id="regis_code">
+            </div>
+            <div>
+            身份:<select name="role" id="role" >
+            <option value="admin">管理员</option>
+            <option value="user">普通用户</option>
+            </select>
+            </div>
+            <div class="regis_box" id="btn_box">
+                <button id="regis_btn">
+                    注 册
+                </button>
+            </div>
+            <a href="/yummy/login" id="login">已有账号？快去登录吧</a>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery-3.2.1.js"></script>
+<script src="/js/register.js"></script>
+<script src="/js/sendCode.js"></script>
+</html>

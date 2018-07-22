@@ -1,0 +1,55 @@
+package com.zx.shark.controller;
+
+import com.zx.shark.model.MenuDO;
+import com.zx.shark.model.Tree;
+import com.zx.shark.service.impl.MenuServiceImpl;
+import com.zx.shark.utils.JSONResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+
+/**
+ * 登录成功之后的页面，需要权限访问
+ */
+
+@Controller
+@RequestMapping("yummy")
+public class YummyController {
+    @Autowired
+    MenuServiceImpl menuService;
+    /**
+     * 个人信息修改
+     * @return
+     */
+    @RequestMapping("/reader")
+    public ModelAndView reader(){
+        ModelAndView modelAndView=new ModelAndView("reader");
+        return modelAndView;
+    }
+
+    /**
+     * 登录成功页面首页
+     * @return
+     */
+    @RequestMapping("/index_v1")
+    public ModelAndView index_v1(){
+        ModelAndView modelAndView=new ModelAndView("index_v1");
+        List<Tree<MenuDO>> menus = menuService.listMenuTree();
+        modelAndView.addObject("menus",menus);
+        modelAndView.addObject("name", "zhansan");
+        modelAndView.addObject("picUrl","/img/touxiang.jpg");
+        modelAndView.addObject("username","zhangsan");
+        return modelAndView;
+    }
+
+    @RequestMapping("/main")
+    public ModelAndView main(){
+        ModelAndView modelAndView=new ModelAndView("main");
+        return modelAndView;
+    }
+
+}
