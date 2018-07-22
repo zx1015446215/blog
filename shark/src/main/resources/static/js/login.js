@@ -1,4 +1,4 @@
-const  loginUrl="http://localhost:8884/index/login"
+const  loginUrl="http://localhost:8884/index/login";
 
 $(document).ready(function () {
     $("#login_btn").on('click',function(){login();});
