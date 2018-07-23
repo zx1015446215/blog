@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zx.shark.model.Book" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR"/>
     <result column="author" property="author" jdbcType="VARCHAR" />
     <result column="company" property="company" jdbcType="VARCHAR" />
     <result column="publishtime" property="publishtime" jdbcType="DATE" />
@@ -31,8 +32,8 @@
   </select>
 
   <insert id="insertBook" parameterType="com.zx.shark.model.Book">
-    insert into book (name, author, company, publishtime, remain, total)
-    values (#{name},#{author},#{company},#{publishtime},#{remain},#{total})
+    insert into book (name, type, author, company, publishtime, remain, total)
+    values (#{name},#{type},#{author},#{company},#{publishtime},#{remain},#{total})
   </insert>
 
   <delete id="deleteBook" parameterType="java.util.List">

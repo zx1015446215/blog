@@ -6,14 +6,16 @@ public class Book {
     private int id;
     private String name;  //书名
     private String author;  //作者
+    private String type;   //类别
     private String company;  //出版社
     private Date publishtime;    //出版时间
     private int remain;    //剩余数量
     private int total;     //总数
     private Boolean flag = false;    //判断用户是否预约了此书
-    public Book(int id,String name, String author, String company, Date publishtime, int remain, int total) {
+    public Book(int id,String name,String type ,String author, String company, Date publishtime, int remain, int total) {
 
         this.name = name;
+        this.type=type;
         this.author = author;
         this.company = company;
         this.publishtime = publishtime;
@@ -21,13 +23,22 @@ public class Book {
         this.total = total;
     }
 
-    public Book(String name, String author, String company, Date publishtime, int total) {
+    public Book(String name,String type, String author, String company, Date publishtime, int total) {
         this.name = name;
+        this.type=type;
         this.author = author;
         this.company = company;
         this.publishtime = publishtime;
         this.remain = total;
         this.total = total;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Boolean getFlag() {

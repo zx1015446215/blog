@@ -3,6 +3,8 @@
 <link href="/css/book.css" rel="stylesheet">
 <link href="/css/button.css" rel="stylesheet">
 <link href="/css/form.css" rel="stylesheet">
+<link href="/css/layout.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/jquery-3.2.1.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>图书馆</title>
@@ -12,16 +14,46 @@
             height: 30px;
             margin-left: auto;
         }
+        .b{
+            font-size: large;
+        }
     </style>
 
 </head>
 <body>
-
+<style>
+    .in{height:30px;border-radius:4px;}
+    .getS{background:#69Ea7c;color:#fff;padding:5px;padding-left:20px;padding-right:20px;border-radius:4px;}
+    .getS:HOVER{background:#49D44d;cursor:pointer;}
+</style>
+<div style="padding-Top:5px;background:#ddd;height:40px">
+    <label style="margin-left:45px">书名：</label> <input class="in" id="selectName"/>
+    <label>作者：</label> <input class="in" id="selectAuthor"/>
+    <label>类别:</label>
+    <select id="selectType">
+    <option value="文学">文学</option>
+    <option value="青春">青春</option>
+    <option value="小说">小说</option>
+    <option value="艺术">艺术</option>
+    <option value="动漫/幽默">动漫/幽默</option>
+    <option value="娱乐时尚">娱乐时尚</option>
+    <option value="旅游">旅游</option>
+    <option value="美食">美食</option>
+    <option value="两性">两性</option>
+    <option value="体育">体育</option>
+    <option value="历史">历史</option>
+    <option value="经济">经济</option>
+    <option value="工具书">工具书</option>
+</select>
+    <label onclick="selectNeedBook()" class="getS"> 查 询 </label>
+    <label onclick="" class="getS"> 显示全部</label>
+</div>
     <table id="mytable" border="1"  class="table table-border table-bordered table-striped">
         <tr >
             <!--<td><input type="checkbox" name="checkAll" onclick="funSelAll()" value="1"></td>-->
             <td hidden="hidden">id</td>
             <td>书名</td>
+            <td>类别</td>
             <td>作者</td>
             <td>出版社</td>
             <td>出版时间</td>
@@ -35,6 +67,7 @@
             <!--<td><input type="checkbox" name="checkbook" th:value="${book.id}"></td>-->
             <td th:text="${book.id}" hidden="hidden">1</td>
             <td th:text="${book.name}">1</td>
+            <td th:text="${book.type}">1</td>
             <td th:text="${book.author}">2</td>
             <td th:text="${book.company}">3</td>
             <td th:text="${book.publishtime}">4</td>
@@ -43,60 +76,12 @@
             <td><input th:id="${book.id}" th:name="${book.id}" type="button" class="btn btn-success"
                        th:onclick="${book.flag} eq true ?  'cancelbook(this.id)': 'borrowbook(this.id)' " th:value="${book.flag} eq true ? '取消预约' : '预约'"></td>
         </tr>
-        <!--<th><input type="button" onclick="deleteBooks()" class="btn size-L btn-danger radius" value=""></th>-->
+        <tr>
+            <td><input type="button" class="btn btn-success radius b"  value="查询书籍"></td>
+        </tr>
         </tbody>
     </table>
 
-
-
-    <input class="btn btn-default" type="button" value="默认">
-    <input class="btn btn-default radius" type="button" value="圆角效果">
-    <input class="btn btn-default round" type="button" value="椭圆效果">
-    <input class="btn btn-primary radius" type="button" value="主要">
-    <input class="btn radius btn-secondary" type="button" value="次要">
-    <input class="btn btn-success radius" type="button" value="成功">
-    <input class="btn radius btn-warning" type="button" value="警告">
-    <input class="btn btn-danger radius" type="button" value="危险">
-    <input class="btn btn-link radius" type="button" value="链接">
-    <input class="btn disabled radius" type="button" value="禁用">
-
-
-    <!--定义颜色的案例-->
-    <table class="table table-border table-bg table-bordered">
-        <thead>
-        <tr><th width="20%">Class</th><th>描述</th></tr>
-        </thead>
-        <tbody>
-        <tr class="active"><th>.active</th><td>悬停在行</td></tr>
-        <tr class="success"><th>.success</th><td>成功或积极</td></tr>
-        <tr class="warning"><th>.warning</th><td>警告或出错</td></tr>
-        <tr class="danger"><th>.danger</th><td>危险</td></tr>
-        </tbody>
-    </table>
-
-    <!--书籍的存入表单-->
-    <div class="login-form" align="center">
-        <div class="login-header">
-            <a href="javascript:;"title="关闭" onclick="closebookform()" class="login-close close">×</a>
-            <h3 class="loginlabel">书籍信息注册</h3>
-        </div>
-        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
-            <table>
-                <p><label>书名:</label>
-                    <input type="text" id="name" class="a"></p>
-                <p><label>作者:</label>
-                    <input type="text" id="author" class="a"></p>
-                <p> <label>出版社:</label>
-                    <input type="text" id="company" class="a"></p>
-                <p><label>出版时间:</label>
-                    <input type="date" id="publishtime" class="a"></p>
-                <p><label>存入数量:</label>
-                    <input type="text" id="total" class="a"></p>
-                <input type="submit" class="btn btn-success radius" onclick="savebook()" value="添加">
-            </table>
-        </div>
-    </div>
-    <div class="login-form-mask"></div>
 
 </body>
 <script src="/js/jquery.min.js?v=2.1.4"></script>
@@ -104,6 +89,7 @@
     const deleteBookUrl='http://localhost:8884/book/deletebook';
     const borrowBookUrl='http://localhost:8884/book/borrowbook';
     const cancelBookUrl='http://localhost:8884/book/cancelbook';
+    const selectNeedBookUrl='http://localhost:8884/book/selectNeedbook';
     function borrowbook(book_id) {
             // 完成预约书籍的动作
             //1.页面显示数量减少1，不重新从数据库中读取
@@ -137,6 +123,11 @@
                 }
             });
     }
+
+    /**
+     * 取消预约
+     * @param book_id
+     */
   function cancelbook(book_id) {
         //将图标改成预约
       var remain = document.getElementById(book_id);
@@ -220,55 +211,10 @@
         });
 
     }
-    //添加书籍
-    function savebook() {
-        var name = $("#name").val(),
-            author = $("#author").val(),
-            company = $("#company").val(),
-            publishtime = $("#publishtime").val(),
-            total = $("#total").val();
-        var mytable = document.getElementById("mytable").insertRow(1);
-        var a = mytable.insertCell(0);
-        var x = mytable.insertCell(1),
-            y = mytable.insertCell(2),
-            z = mytable.insertCell(3),
-            e = mytable.insertCell(4),
-            f = mytable.insertCell(5),
-            g = mytable.insertCell(6);
-        $.ajax({
-            url: 'http://localhost:8884/book/savebook',
-            type: "POST",
-            data: {
-                name: name,
-                author: author,
-                company : company,
-                publishtime : publishtime,
-                total : total
-            },
-            error: function(e) {
-                console.log("error", e.statusText);
-            },
-            success: function(res) {
-                var num = res.status;
-                if (num === 200) {
-                    a.innerHTML='<input type="checkbox" name="checkbook" value="1">';
-                    x.innerHTML=name;
-                    y.innerHTML=author;
-                    z.innerHTML=company;
-                    e.innerHTML=publishtime;
-                    f.innerHTML=total;
-                    g.innerHTML=total;
-                    alert("添加成功");
-                } else{
-                    alert("添加出错");
-                }
-            },
-            complete: function(d) {
-                console.log("done");
-            }
-        });
-    }
 
+    /**
+     * 查看是否全部选中
+     */
     function funSelAll(){
         var selects=document.getElementsByName("checkbook");
         if(document.getElementsByName("checkAll")[0].checked==true){
@@ -280,6 +226,34 @@
                 selects[i].checked=false;
             }
         }
+    }
+
+    /**
+     * 条件查询书籍
+     */
+    function selectNeedBook() {
+        var name = document.getElementById("selectName");
+        var author = document.getElementById("selectAuthor");
+        var type = document.getElementById("selectType").value;
+        $.ajax({
+            url: selectNeedBookUrl,
+            type: "POST",
+            data: {
+                name : name,
+                author : author,
+                type : type
+            },
+            error: function(e) {
+                console.log("error", e.statusText);
+                alert("查询的书籍不存在")
+            },
+            success: function(res) {
+                alert("查询成功")
+            },
+            complete: function(d) {
+                console.log("done");
+            }
+        });
     }
 </script>
 </html>

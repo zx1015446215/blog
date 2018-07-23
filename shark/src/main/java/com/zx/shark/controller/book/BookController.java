@@ -68,15 +68,16 @@ public class BookController {
     @ResponseBody
     public JSONResult savebook(HttpServletRequest request){
         String name = request.getParameter("name");
+        String type = request.getParameter("type");
         String author = request.getParameter("author");
         String company = request.getParameter("company");
         Date date = Date.valueOf(request.getParameter("publishtime"));
-        System.out.println(date.toString());
         int total = Integer.parseInt(request.getParameter("total"));
-        Book book = new Book(name,author,company,date,total);
+        Book book = new Book(name,type,author,company,date,total);
         try {
             bookService.saveBook(book);
         }catch (Exception e){
+            System.out.println("添加书籍出错原因："+e.toString());
             return JSONResult.errorMsg("添加失败");
         }
         return JSONResult.ok();
@@ -154,5 +155,9 @@ public class BookController {
          }
 
         return JSONResult.ok();
+    }
+    @RequestMapping("/test")
+    public ModelAndView test(){
+        return new ModelAndView("index/index");
     }
 }
