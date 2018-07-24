@@ -65,7 +65,7 @@
 
         <tr th:each="book : ${books}" th:class="${book.remain} gt 0 ? 'active' : 'danger'">
             <!--<td><input type="checkbox" name="checkbook" th:value="${book.id}"></td>-->
-            <td th:text="${book.id}" hidden="hidden">1</td>
+            <!--<td th:text="${book.id}" hidden="hidden">1</td>-->
             <td th:text="${book.name}">1</td>
             <td th:text="${book.type}">1</td>
             <td th:text="${book.author}">2</td>
@@ -87,9 +87,9 @@
 <script src="/js/jquery.min.js?v=2.1.4"></script>
 <script type="application/javascript">
     const deleteBookUrl='http://localhost:8884/book/deletebook';
-    const borrowBookUrl='http://localhost:8884/book/borrowbook';
-    const cancelBookUrl='http://localhost:8884/book/cancelbook';
-    const selectNeedBookUrl='http://localhost:8884/book/selectNeedbook';
+           borrowBookUrl='http://localhost:8884/book/borrowbook';
+           cancelBookUrl='http://localhost:8884/book/cancelbook';
+           selectNeedBookUrl='http://localhost:8884/book/selectNeedbook';
     function borrowbook(book_id) {
             // 完成预约书籍的动作
             //1.页面显示数量减少1，不重新从数据库中读取
@@ -235,12 +235,14 @@
         var name = document.getElementById("selectName");
         var author = document.getElementById("selectAuthor");
         var type = document.getElementById("selectType").value;
+        var cls = "";
+        alert("name:"+name.value+"  author:"+author.value+" type:"+type);
         $.ajax({
             url: selectNeedBookUrl,
             type: "POST",
             data: {
-                name : name,
-                author : author,
+                name : name.value,
+                author : author.value,
                 type : type
             },
             error: function(e) {
@@ -248,7 +250,46 @@
                 alert("查询的书籍不存在")
             },
             success: function(res) {
-                alert("查询成功")
+                alert("查询成功");
+                $("#tbody").html("");  //  如果第一行保留的话，添加tr:not(:first)
+                var j=1;
+                var htmlText = "";
+                jQuery.each(res.data, function(i,item){   //遍历list
+                    if(item.remain==0){
+                        cls = 'danger';
+                    }else{
+                        cls = 'active';
+                    }
+                    if(item.flag){
+                        var temp1 = '取消预约';
+                        var temp2 = 'cancelbook('+item.id+')';
+                    }else{
+                        var temp1 = '预约';
+                        var temp2 = 'borrowbook('+item.id+')';
+                    }
+                    htmlText += '<tr class="'+cls+'">';
+                    htmlText += '<td>'+item.name+'</td>';
+                    htmlText += '<td>'+item.type+'</td>';
+                    htmlText += '<td>'+item.author+'</td>';
+                    htmlText += '<td>'+item.company+'</td>';
+                    htmlText += '<td>'+item.publishtime+'</td>';
+                    htmlText += '<td id="'+item.id+'">'+item.remain+'</td>';
+                    htmlText += '<td>'+item.total+'</td>';
+                    htmlText += '<td><input id="'+item.id+'" name="'+item.id+'" type="button" class="btn btn-success" onclick="'+temp2+'" value="'+temp1+'"></td>';
+
+
+
+                    // var mytable = document.getElementById("mytable").insertRow(j++);
+                    //     mytable.insertCell(0).innerHTML=item.name;
+                    //     mytable.insertCell(1).innerHTML=item.type;
+                    //     mytable.insertCell(2).innerHTML=item.author;
+                    //     mytable.insertCell(3).innerHTML=item.company;
+                    //     mytable.insertCell(4).innerHTML=item.publishtime;
+                    //     mytable.insertCell(5).innerHTML=item.remain;
+                    //     mytable.insertCell(6).innerHTML=item.total;
+                    //     mytable.insertCell(7).innerHTML='<input id="'+item.id+'" name="'+item.id+'" type="button" class="btn btn-success" onclick="'+temp2+'" value="'+temp1+'">';
+                });
+                $("#tbody").append(htmlText);
             },
             complete: function(d) {
                 console.log("done");

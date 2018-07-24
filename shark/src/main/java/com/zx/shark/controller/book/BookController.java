@@ -156,8 +156,26 @@ public class BookController {
 
         return JSONResult.ok();
     }
-    @RequestMapping("/test")
-    public ModelAndView test(){
-        return new ModelAndView("index/index");
+    @RequestMapping("/selectNeedbook")
+    @ResponseBody
+    public JSONResult selectNeedbook(HttpServletRequest request){
+        List<Book> books = new ArrayList<>();
+        String name = request.getParameter("name");
+        String author = request.getParameter("author");
+        String type = request.getParameter("type");
+        Book need = new Book(name,author,type);
+        try{
+            books = bookService.selectNeedBook(need);
+            List<Integer> listid = bookService.selectUserBooks("zhuxin");
+            for(Book book:books){
+                if(listid.contains(book.getId())){
+                    book.setFlag(true);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("查询出错原因:"+e.toString());
+            return JSONResult.errorMsg("查询出错");
+        }
+        return JSONResult.ok(books);
     }
 }

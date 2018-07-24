@@ -51,6 +51,11 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
+    public List<Book> selectNeedBook(Book book) {
+        return bookMapper.selectNeedBook(book);
+    }
+
+    @Override
     public int countBooks() {
         return bookMapper.countBooks();
     }

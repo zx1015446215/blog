@@ -32,7 +32,7 @@ function login() {
     success: function(res) {
       var num = res.status;
       if (num === 200) {
-        alert("登录成功，即将跳转到主界面")
+        // alert("登录成功，即将跳转到主界面");
         location.href = "/yummy/index_v1";
       } else if (num === 500) {
         var nb = res.msg;

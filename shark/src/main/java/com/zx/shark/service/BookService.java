@@ -14,6 +14,7 @@ public interface BookService {
     void updateBookRemain(int book_id);
     void RebackBookRemain(int book_id);
     void deleteUserBook(UserBook userBook);
+    List<Book> selectNeedBook(Book book);
     int countBooks();
     List<Integer> selectUserBooks(String username);
 

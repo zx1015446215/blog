@@ -26,9 +26,25 @@
   from user_book,user
   where username = 'zhuxin'   and user_book.user_id = user.id
   </select>
+  <!--查询数据个数-->
   <select id="countBooks" resultType="java.lang.Integer">
   select count(*)
   from book
+  </select>
+  <!--选择查询书籍-->
+  <select id="selectNeedBook" parameterType="com.zx.shark.model.Book" resultMap="BaseResultMap">
+    select *
+    from  book
+    <where>
+      <if test="id != null and id != ''"> and id = #{id} </if>
+      <if test="name != null and name != ''"> and name = #{name} </if>
+      <if test="author != null and author != ''"> and author = #{author} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="company != null and company != ''"> and company = #{company} </if>
+      <if test="publishtime != null and publishtime != ''"> and publishtime = #{publishtime} </if>
+      <if test="remain != null and remain != ''"> and remain = #{remain} </if>
+      <if test="total != null and total != ''"> and total = #{total} </if>
+    </where>
   </select>
 
   <insert id="insertBook" parameterType="com.zx.shark.model.Book">

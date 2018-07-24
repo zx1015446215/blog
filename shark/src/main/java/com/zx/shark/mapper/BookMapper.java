@@ -19,4 +19,5 @@ public interface BookMapper {
     void deleteUserBook(UserBook userBook);
     int countBooks();
     List<Integer> selectUserBooks(String username);
+    List<Book> selectNeedBook(Book book);
 }

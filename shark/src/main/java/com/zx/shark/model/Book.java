@@ -33,6 +33,12 @@ public class Book {
         this.total = total;
     }
 
+    public Book(String name, String author, String type) {
+        this.name = name;
+        this.author = author;
+        this.type = type;
+    }
+
     public String getType() {
         return type;
     }
