@@ -6,6 +6,7 @@ import com.zx.shark.model.UserBook;
 import com.zx.shark.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -15,14 +16,23 @@ public class BookServiceImpl implements BookService{
 
     @Autowired
     BookMapper bookMapper;
-    @Override
-    public List<Book> listAllBooks() {
-        return bookMapper.selectAllBooks();
-    }
 
+    /**
+     * 获取所以书籍和对应用户借阅信息
+     * @param username
+     * @return
+     */
+    @Transactional
     @Override
-    public void saveBook(Book book) {
-        bookMapper.insertBook(book);
+    public List<Book> findAllBook(String username) {
+        List<Book> books = bookMapper.selectAllBooks();
+        List<Integer> listid =bookMapper.selectUserBooks(username);
+        for(Book book:books){
+            if(listid.contains(book.getId())){
+                book.setFlag(true);
+            }
+        }
+        return books;
     }
 
     @Override
@@ -30,29 +40,47 @@ public class BookServiceImpl implements BookService{
         bookMapper.deleteBook(ids);
     }
 
+    /**
+     * 借书的操作
+     * @param userBook
+     * @param book_id
+     */
+    @Transactional
     @Override
-    public void saveUserBook(UserBook userBook) {
+    public void borrowBook(UserBook userBook, int book_id) {
         bookMapper.insertUserBook(userBook);
-    }
-
-    @Override
-    public void updateBookRemain(int book_id) {
         bookMapper.updateBookRemain(book_id);
     }
 
+    /**
+     * 取消借阅书籍
+     * @param userBook
+     * @param book_id
+     */
+    @Transactional
     @Override
-    public void RebackBookRemain(int book_id) {
+    public void cancelBorrow(UserBook userBook, int book_id) {
         bookMapper.rebackBookRemain(book_id);
-    }
-
-    @Override
-    public void deleteUserBook(UserBook userBook) {
         bookMapper.deleteUserBook(userBook);
     }
 
+    /**
+     * 条件查询书籍
+     * @param book
+     * @param username
+     * @return
+     */
+    @Transactional
     @Override
-    public List<Book> selectNeedBook(Book book) {
-        return bookMapper.selectNeedBook(book);
+    public List<Book> selectNeedBook(Book book, String username) {
+        List<Book> books = bookMapper.selectNeedBook(book);
+        List<Integer> listid = bookMapper.selectUserBooks(username);
+        for(Book book1:books){
+            if(listid.contains(book1.getId())){
+                book1.setFlag(true);
+            }
+        }
+        return books;
     }
 
     @Override
@@ -60,8 +88,4 @@ public class BookServiceImpl implements BookService{
         return bookMapper.countBooks();
     }
 
-    @Override
-    public List<Integer> selectUserBooks(String username) {
-        return bookMapper.selectUserBooks(username);
-    }
 }

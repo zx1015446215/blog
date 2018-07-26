@@ -236,7 +236,6 @@
         var author = document.getElementById("selectAuthor");
         var type = document.getElementById("selectType").value;
         var cls = "";
-        alert("name:"+name.value+"  author:"+author.value+" type:"+type);
         $.ajax({
             url: selectNeedBookUrl,
             type: "POST",
@@ -247,19 +246,23 @@
             },
             error: function(e) {
                 console.log("error", e.statusText);
-                alert("查询的书籍不存在")
+                alert("查询失败")
             },
             success: function(res) {
-                alert("查询成功");
                 $("#tbody").html("");  //  如果第一行保留的话，添加tr:not(:first)
                 var j=1;
                 var htmlText = "";
+                if(res.data == ""){
+                    alert("暂无所查书籍");
+                    return;
+                }
                 jQuery.each(res.data, function(i,item){   //遍历list
                     if(item.remain==0){
                         cls = 'danger';
                     }else{
                         cls = 'active';
                     }
+                    alert("hhh:"+item.flag);
                     if(item.flag){
                         var temp1 = '取消预约';
                         var temp2 = 'cancelbook('+item.id+')';

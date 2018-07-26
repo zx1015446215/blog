@@ -7,15 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface BookService {
-    List<Book>  listAllBooks();
-    void saveBook(Book book);
+    List<Book> findAllBook(String username);
     void removeBook(List<Integer> ids);
-    void saveUserBook(UserBook userBook);
-    void updateBookRemain(int book_id);
-    void RebackBookRemain(int book_id);
-    void deleteUserBook(UserBook userBook);
-    List<Book> selectNeedBook(Book book);
+    void borrowBook(UserBook userBook,int book_id);
+    void cancelBorrow(UserBook userBook,int book_id);
+    List<Book> selectNeedBook(Book book,String username);
     int countBooks();
-    List<Integer> selectUserBooks(String username);
 
 }

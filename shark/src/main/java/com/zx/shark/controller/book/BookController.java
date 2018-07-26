@@ -1,5 +1,6 @@
 package com.zx.shark.controller.book;
 
+import com.zx.shark.mapper.BookMapper;
 import com.zx.shark.model.Book;
 import com.zx.shark.model.User;
 import com.zx.shark.model.UserBook;
@@ -31,12 +32,14 @@ public class BookController {
     BookServiceImpl bookService;
     @Autowired
     UserServiceImpl userService;
+    @Autowired
+    BookMapper bookMapper;
 
     //书的首页
     @RequestMapping("/main")
     public ModelAndView main(){
         ModelAndView modelAndView = new ModelAndView("book");
-        List<Book> books = bookService.listAllBooks();
+        List<Book> books = bookMapper.selectAllBooks();
         modelAndView.addObject("books",books);
         return modelAndView;
     }
@@ -45,16 +48,10 @@ public class BookController {
     @RequestMapping("findbook")
     public ModelAndView findbook(){
         ModelAndView modelAndView = new ModelAndView("findbook");
-        //获取全部书籍的信息
-        List<Book> books = bookService.listAllBooks();
-        //获取用户预约书籍的id号
-//        String username = SecurityContextHolder.getContext().getAuthentication().getCredentials();
-        List<Integer> listid = bookService.selectUserBooks("zhuxin");
-        for(Book book:books){
-            if(listid.contains(book.getId())){
-                book.setFlag(true);
-            }
-        }
+        //从SecurityContextHolder中获取用户名
+        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+        String username = String.valueOf(authentication.getPrincipal());
+        List<Book> books = bookService.findAllBook(username);
         modelAndView.addObject("books",books);
         return modelAndView;
     }
@@ -75,7 +72,7 @@ public class BookController {
         int total = Integer.parseInt(request.getParameter("total"));
         Book book = new Book(name,type,author,company,date,total);
         try {
-            bookService.saveBook(book);
+            bookMapper.insertBook(book);
         }catch (Exception e){
             System.out.println("添加书籍出错原因："+e.toString());
             return JSONResult.errorMsg("添加失败");
@@ -114,17 +111,15 @@ public class BookController {
     public JSONResult borrowbook(HttpServletRequest request){
         int book_id = Integer.parseInt(request.getParameter("id"));
         //从SecurityContextHolder中获取用户名
-        String username = "zhuxin";
-//        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println(authentication.getCredentials()+"  "+authentication.getPrincipal());
+        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+        String username = String.valueOf(authentication.getPrincipal());
         //根据用户名从数据库中获取用户的id
         User user = userService.findUserByUsername(username);
         int user_id = Math.toIntExact(user.getId());
         //将book_id和user_id添加如数据库表book_user中，并在book中将remain减少1
         UserBook userBook = new UserBook(user_id,book_id);
         try {
-            bookService.saveUserBook(userBook);
-            bookService.updateBookRemain(book_id);
+            bookService.borrowBook(userBook,book_id);
         }catch (Exception e){
             System.out.println("预约书籍失败的原因:"+e.toString());
             return JSONResult.errorMsg("预约失败");
@@ -137,18 +132,14 @@ public class BookController {
     public JSONResult cancelbook(HttpServletRequest request){
         int book_id = Integer.parseInt(request.getParameter("id"));
         //从SecurityContextHolder中获取用户名
-        String username = "zhuxin";
-//        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println(authentication.getCredentials()+"  "+authentication.getPrincipal());
+        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+        String username = String.valueOf(authentication.getPrincipal());
         //根据用户名从数据库中获取用户的id
         User user = userService.findUserByUsername(username);
         int user_id = Math.toIntExact(user.getId());
         UserBook userBook = new UserBook(user_id,book_id);
          try{
-             //书籍总库的某书剩余量加1
-             bookService.RebackBookRemain(book_id);
-             //取消某书与借阅人之间的联系
-             bookService.deleteUserBook(userBook);
+             bookService.cancelBorrow(userBook,book_id);
          }catch (Exception e){
              System.out.println("取消预约失败原因:"+e.toString());
              return JSONResult.errorMsg("预约失败");
@@ -164,14 +155,11 @@ public class BookController {
         String author = request.getParameter("author");
         String type = request.getParameter("type");
         Book need = new Book(name,author,type);
+        //从SecurityContextHolder中获取用户名
+        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+        String username = String.valueOf(authentication.getPrincipal());
         try{
-            books = bookService.selectNeedBook(need);
-            List<Integer> listid = bookService.selectUserBooks("zhuxin");
-            for(Book book:books){
-                if(listid.contains(book.getId())){
-                    book.setFlag(true);
-                }
-            }
+            books=bookService.selectNeedBook(need,username);
         }catch (Exception e){
             System.out.println("查询出错原因:"+e.toString());
             return JSONResult.errorMsg("查询出错");
