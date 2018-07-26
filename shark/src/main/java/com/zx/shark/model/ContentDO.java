@@ -1,6 +1,6 @@
 package com.zx.shark.model;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * 文本内容
@@ -29,21 +29,21 @@ public class ContentDO implements Serializable {
     //
     private Integer hits;
     //评论数量
-    private Integer commentsNum;
+    private Integer comments_num;
     //开启评论
-    private Integer allowComment;
+    private Integer allow_comment;
     //允许ping
-    private Integer allowPing;
+    private Integer allow_ping;
     //允许反馈
-    private Integer allowFeed;
+    private Integer allow_feed;
     //状态
     private Integer status;
     //作者
     private String author;
     //创建时间
-    private Date gtmCreate;
+    private Date gtm_create;
     //修改时间
-    private Date gtmModified;
+    private Date gtm_modified;
 
     /**
      * 设置：
@@ -168,50 +168,50 @@ public class ContentDO implements Serializable {
     /**
      * 设置：评论数量
      */
-    public void setCommentsNum(Integer commentsNum) {
-        this.commentsNum = commentsNum;
+    public void setComments_num(Integer comments_num) {
+        this.comments_num = comments_num;
     }
     /**
      * 获取：评论数量
      */
-    public Integer getCommentsNum() {
-        return commentsNum;
+    public Integer getComments_num() {
+        return comments_num;
     }
     /**
      * 设置：开启评论
      */
-    public void setAllowComment(Integer allowComment) {
-        this.allowComment = allowComment;
+    public void setAllow_comment(Integer allow_comment) {
+        this.allow_comment = allow_comment;
     }
     /**
      * 获取：开启评论
      */
-    public Integer getAllowComment() {
-        return allowComment;
+    public Integer getAllow_comment() {
+        return allow_comment;
     }
     /**
      * 设置：允许ping
      */
-    public void setAllowPing(Integer allowPing) {
-        this.allowPing = allowPing;
+    public void setAllow_ping(Integer allow_ping) {
+        this.allow_ping = allow_ping;
     }
     /**
      * 获取：允许ping
      */
-    public Integer getAllowPing() {
-        return allowPing;
+    public Integer getAllow_ping() {
+        return allow_ping;
     }
     /**
      * 设置：允许反馈
      */
-    public void setAllowFeed(Integer allowFeed) {
-        this.allowFeed = allowFeed;
+    public void setAllow_feed(Integer allow_feed) {
+        this.allow_feed = allow_feed;
     }
     /**
      * 获取：允许反馈
      */
-    public Integer getAllowFeed() {
-        return allowFeed;
+    public Integer getAllow_feed() {
+        return allow_feed;
     }
     /**
      * 设置：状态
@@ -240,26 +240,26 @@ public class ContentDO implements Serializable {
     /**
      * 设置：创建时间
      */
-    public void setGtmCreate(Date gtmCreate) {
-        this.gtmCreate = gtmCreate;
+    public void setGtm_create(Date gtm_create) {
+        this.gtm_create = gtm_create;
     }
     /**
      * 获取：创建时间
      */
-    public Date getGtmCreate() {
-        return gtmCreate;
+    public Date getGtm_create() {
+        return gtm_create;
     }
     /**
      * 设置：修改时间
      */
-    public void setGtmModified(Date gtmModified) {
-        this.gtmModified = gtmModified;
+    public void setGtm_modified(Date gtm_modified) {
+        this.gtm_modified = gtm_modified;
     }
     /**
      * 获取：修改时间
      */
-    public Date getGtmModified() {
-        return gtmModified;
+    public Date getGtm_modified() {
+        return gtm_modified;
     }
 
     @Override
@@ -275,14 +275,14 @@ public class ContentDO implements Serializable {
                 ", tags='" + tags + '\'' +
                 ", categories='" + categories + '\'' +
                 ", hits=" + hits +
-                ", commentsNum=" + commentsNum +
-                ", allowComment=" + allowComment +
-                ", allowPing=" + allowPing +
-                ", allowFeed=" + allowFeed +
+                ", commentsNum=" + comments_num +
+                ", allowComment=" + allow_comment +
+                ", allowPing=" + allow_ping +
+                ", allowFeed=" + allow_feed +
                 ", status=" + status +
                 ", author='" + author + '\'' +
-                ", gtmCreate=" + gtmCreate +
-                ", gtmModified=" + gtmModified +
+                ", gtmCreate=" + gtm_create +
+                ", gtmModified=" + gtm_modified +
                 '}';
     }
 }

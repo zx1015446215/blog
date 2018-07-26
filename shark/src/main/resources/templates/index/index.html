@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Zx的博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+<link href="/css/style1.css" type="text/css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="all" property="" />
+<link href="/css/font-awesome.css" rel="stylesheet"> 			<!-- font-awesome icons -->
+<link href="/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/jquery-2.2.3.min.js"></script>  
+<script src="js/smoothscroll.min.js"></script> 
+<style>
+	.authorsize{
+		font-size: 21px;
+	}
+</style>
+
+</head>
+<body>
+<!-- banner -->
+<div class="banner">
+	<!-- header -->
+	<div class="header">
+		<div class="container">
+			<div class="header-w3lsrow">
+				<div class="menu">
+					<div class="toggle"></div>
+					<ul class="w3nav">
+						<li><a href="/blog" class="active"> 主页</a></li>
+						<li><a href="/blog/open/page/communication">交流</a></li>
+						<li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Short Codes <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="www.baidu.com">测试1</a></li>
+								<li><a href="www.hao123.com">测试2</a></li>
+							</ul>
+						</li>
+					</ul>
+					<div class="clearfix"> </div>
+				</div>
+
+				<div class="logo">
+					<h1><a>Zx的博客</a></h1>
+				</div>
+				<div class="header-right">
+					<ul>
+						<li><a href="/index/login">SignIn</a></li>
+						<li><a href="/index/register">SignUp</a></li>
+					</ul>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+		<!-- banner-text -->
+		<div class="banner-text"> 
+			<div class="container">
+				<div class="flexslider">
+					<ul class="slides">
+						<li>
+							<div class="banner-w3lstext">
+								<h2>Welcome</h2>
+								<p>无论我做什么，我都想成为那个我</p>
+								<p>Whatever I do, I want to be me</p>
+							</div>
+						</li>
+						<li>
+							<div class="banner-w3lstext">
+								<h3>No End</h3>
+								<p>如果你不给自己设限，世界上便没有限制你发挥的篱笆</p>
+								<p>If you don't set limits on yourself, there's no fence in the world that limits you</p>
+							</div>
+						</li>
+						<li>
+							<div class="banner-w3lstext">
+								<h3>Life</h3>
+								<p>我不是没脾气，只是不轻易发脾气。我不是不爱你，只是放在心里而已</p>
+								<p class="">I did not temper, but not easily loses his temper.I'm not love you, just put in the heart just</p>
+							</div>
+						</li>
+					</ul> 
+				</div> 	
+				<script defer src="/js/jquery.flexslider.js"></script>
+				<script type="text/javascript">
+					$(window).load(function(){
+					  $('.flexslider').flexslider({
+						animation: "slide",
+						start: function(slider){
+						  $('body').removeClass('loading');
+						}
+					  });
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+<br/>
+<br/>
+<!-- Main Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<!--加载内容 -->
+				<div id="incomeNum"></div>
+
+				<div class="clearfix">
+					<p id="flagLoaded" style="display: none; text-align: center;">已全部加载</p>
+					<a id="flagLoad" style="display: none;" class="btn btn-secondary float-right"
+					   href="javascript:void(0)" onclick="nextPage()">更早 &rarr;</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--页面加载更快-->
+    <script src="/js/bootstrap.js"></script>
+</body>
+<script type="text/javascript">
+    var limit = 10;
+    var currentPage = 0;
+    var total;
+    $(function(){
+        bindList(0);
+
+    });
+
+    function nextPage() {
+        bindList(currentPage * limit)
+    }
+    function bindList(offset) {
+        $.ajax({
+            url : 'http://localhost:8884/blog/open/list?type=article&limit=10&offset=' + offset,
+            type : 'get',
+            dataType : 'json',
+            success : function(data) {
+                var rows = data.rows;
+                total = data.total;
+                var htmlText = "";
+                for (i = 0; i < rows.length; i++) {
+                    htmlText += '<div class="post-preview">';
+                    htmlText += '<a href="/blog/open/post/' + rows[i].cid + '">';
+                    htmlText += '<h2 class="post-title">';
+                    htmlText += rows[i].title;
+                    htmlText += '</h2>';
+                    htmlText += '</a>';
+                    htmlText += '<p class="authorsize">作者：<a href="#">'
+                        + rows[i].author
+                        + '</a> &nbsp;&nbsp; '
+                        + rows[i].gtm_modified + '</p>';
+                    htmlText += '</div>';
+                    htmlText += '<hr>';
+                }
+                $("#incomeNum").append(htmlText);
+                document.getElementById("flagLoad").style.display = "block";
+                currentPage++;
+                if (total <= currentPage * limit) {
+                    document.getElementById("flagLoaded").style.display = "block";
+                    document.getElementById("flagLoad").style.display = "none";
+                }
+            }
+        });
+    }
+</script>
+<!-- menu js -->
+<script>
+    $('.toggle').on('click', function() {
+        $('.menu').toggleClass('open');
+        $('.w3nav').toggleClass('show-w3nav');
+        $('.w3nav a').toggleClass('show-w3nav-link');
+        $('.toggle').toggleClass('close');
+    });
+</script>
+<!-- //menu js -->
+<script src="/js/owl.carousel.js"></script>
+</html>
