@@ -1,11 +1,11 @@
 const RegisterUrl = "http://localhost:8884/register";
 
 $('#regis_btn').click(function () {
-    var $k = $('.normal_input'),
+    var $k = $('.form-control'),
         username = $('#username').val(),
         email = $('#email').val(),
         pass = $('#password').val(),
-        role = $('#role').val();
+        role = 'user';
     // console.log($k);
     for (let i = 0; i < $k.length; i++) {
         if ($k[i].value === '') {

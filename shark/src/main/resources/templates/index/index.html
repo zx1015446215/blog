@@ -12,14 +12,33 @@
 <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="all" property="" />
 <link href="/css/font-awesome.css" rel="stylesheet"> 			<!-- font-awesome icons -->
 <link href="/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
-<script src="js/jquery-2.2.3.min.js"></script>  
-<script src="js/smoothscroll.min.js"></script> 
+<link rel="stylesheet" href="/css/login.css" />
+<script src="/js/jquery-2.2.3.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/smoothscroll.min.js"></script>
+<script>
+	$(document).ready(function() {
+		//打开会员注册
+		$("#Regist_start_").click(function() {
+			$("#regist_container").show(500);
+			$("#_close").animate({
+				height: '40px',
+				width: '40px'
+			}, 500);
+		});
+	});
+</script>
+<style>
+	.a{
+		margin-top: 15%;
+		margin-left: 40%;
+	}
+</style>
 <style>
 	.authorsize{
 		font-size: 21px;
 	}
 </style>
-
 </head>
 <body>
 <!-- banner -->
@@ -33,12 +52,12 @@
 					<ul class="w3nav">
 						<li><a href="/blog" class="active"> 主页</a></li>
 						<li><a href="/blog/open/page/communication">交流</a></li>
-						<li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Short Codes <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="www.baidu.com">测试1</a></li>
-								<li><a href="www.hao123.com">测试2</a></li>
-							</ul>
-						</li>
+						<!--<li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Short Codes <span class="caret"></span></a>-->
+							<!--<ul class="dropdown-menu">-->
+								<!--<li><a href="http://www.baidu.com">测试1</a></li>-->
+								<!--<li><a href="http://www.hao123.com">测试2</a></li>-->
+							<!--</ul>-->
+						<!--</li>-->
 					</ul>
 					<div class="clearfix"> </div>
 				</div>
@@ -49,11 +68,33 @@
 				<div class="header-right">
 					<ul>
 						<li><a href="/index/login">SignIn</a></li>
-						<li><a href="/index/register">SignUp</a></li>
+						<li><a id="Regist_start_">SignUp</a></li>
 					</ul>
 					<div class="clearfix"> </div>
 				</div>
 				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- 会员注册 -->
+	<div class="a">
+		<div id='regist_container' style="display: none;">
+			<div id="lab1">
+				<span id="lab_login">会员注册</span>
+				<span id="lab_toLogin">
+						&emsp;已有账号&nbsp;
+						<a href="/index/login">立即登录</a>
+					</span>
+			</div>
+			<div id="form_container2" style="padding-top: 25px;">
+
+				<input type="text" class="form-control" value="admin"  placeholder="用户名" id="username"/>
+				<input type="password" class="form-control" placeholder="密码" id="password" />
+				<input type="password" class="form-control" placeholder="确认密码" id="sure_pass" />
+				<input type="text" class="form-control" placeholder="邮箱" id="email" />
+				<input type="text" class="form-control" placeholder="验证码" id="code" />
+				<input id="regis_code" type="button" class="btn btn-success" value="点击发送验证码" />
+			    <input type="button" value="注册" class="btn btn-success" id="regis_btn" />
 			</div>
 		</div>
 	</div>
@@ -99,8 +140,7 @@
 			</div>
 		</div>
 	</div>
-<br/>
-<br/>
+<br/><br/>
 <!-- Main Content -->
 	<div class="container">
 		<div class="row">
@@ -176,4 +216,6 @@
 </script>
 <!-- //menu js -->
 <script src="/js/owl.carousel.js"></script>
+<script src="/js/register.js"></script>
+<script src="/js/sendCode.js"></script>
 </html>

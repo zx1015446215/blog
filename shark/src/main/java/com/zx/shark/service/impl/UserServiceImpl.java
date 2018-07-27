@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,27 +28,37 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RedisTemplate redisTemplate;
 
+    @Transactional
     @Override
-    public void registerUser(User user) {
+    public void registerUser(User user, User_Roles user_roles) {
+//        存入redis
+        ValueOperations<String,User> operations=redisTemplate.opsForValue();
         userMapper.insert(user);
+        roleMapper.insertUser_Roles(user_roles);
+        operations.set(user.getUsername(),user,30, TimeUnit.SECONDS);
+        logger.info("用户插入缓存 >> " +"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
+
+        //mongodb插入数据
+//       userRepository.save(user);
+
     }
 
     @Override
     public User findUserByUsername(String username) {
-//        ValueOperations<String,User> operations=redisTemplate.opsForValue();
-//        boolean haskey= redisTemplate.hasKey(username);
-//        //若缓存中存在
-//        if(haskey){
-//            User user=operations.get(username);
-//            logger.info("从缓存中获取了用户: "+"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
-//            return user;
-//        }
+        ValueOperations<String,User> operations=redisTemplate.opsForValue();
+        boolean haskey= redisTemplate.hasKey(username);
+        //若缓存中存在
+        if(haskey){
+            User user=operations.get(username);
+            logger.info("从缓存中获取了用户: "+"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
+            return user;
+        }
         User user=userMapper.selectByUsername(username);
-//        //加入缓存
-//        if(user!=null){
-//            operations.set(username,user,1000, TimeUnit.SECONDS); //第三个参数设置过期时间
-//            logger.info("用户插入缓存 >> " +"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
-//        }
+        //加入缓存
+        if(user!=null){
+            operations.set(username,user,1000, TimeUnit.SECONDS); //第三个参数设置过期时间
+            logger.info("用户插入缓存 >> " +"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
+        }
         return user;
     }
 
@@ -59,10 +70,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public Role findRoleById(long id) {
         return roleMapper.selectByUserId(id);
-    }
-
-    @Override
-    public void saveUser_Roles(User_Roles user_roles) {
-        roleMapper.insertUser_Roles(user_roles);
     }
 }

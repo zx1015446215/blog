@@ -51,7 +51,6 @@ public class ControllerOne {
     @RequestMapping("/register")
     @ResponseBody
     public JSONResult register(HttpServletRequest request){
-        ValueOperations<String,User> operations=redisTemplate.opsForValue();
 
         //用户信息注册
         String username=request.getParameter("username");
@@ -73,17 +72,12 @@ public class ControllerOne {
         User_Roles user_roles=new User_Roles(user_id,roles_id);
 
         try {
-            userServiceImpl.registerUser(user);
-            userServiceImpl.saveUser_Roles(user_roles);
-//            userRepository.save(user);
-
+            userServiceImpl.registerUser(user,user_roles);
         }catch (Exception e){
             logger.info("错误信息: "+e);
             return JSONResult.ok();
         }
         logger.info("注册成功");
-        operations.set(username,user,30, TimeUnit.SECONDS);
-        logger.info("用户插入缓存 >> " +"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
         return JSONResult.ok();
     }
 

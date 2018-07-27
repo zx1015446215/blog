@@ -49,6 +49,7 @@ body a:hover{
     padding-top: 0.5em;
 }
 .header-right {
+	font-size: x-large;
     float: right;
     padding-top: 0.8em;
 }

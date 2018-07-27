@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.util.DigestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,10 @@ public class AuthenticationProvider implements org.springframework.security.auth
         String username=authentication.getName();
         String password= (String) authentication.getCredentials();
         User user = (User) userService.loadUserByUsername(username);
-        if (password.equals(user.getPassword())){
+//        if (password.equals(DigestUtils.md5Digest(user.getPassword().getBytes()))){
+        if(DigestUtils.md5DigestAsHex(password.getBytes()).equals(user.getPassword())){
             List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
+
             Role role=userServiceImpl.findRoleById(user.getId());
             logger.info("role*********:"+role.getName()+"password:"+password);
             auths.add(new SimpleGrantedAuthority(role.getName()));
