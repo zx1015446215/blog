@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <title>Zx的博客</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,25 +16,12 @@
 <script src="/js/jquery-2.2.3.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/smoothscroll.min.js"></script>
-<script>
-	$(document).ready(function() {
-		//打开会员注册
-		$("#Regist_start_").click(function() {
-			$("#regist_container").show(500);
-			$("#_close").animate({
-				height: '40px',
-				width: '40px'
-			}, 500);
-		});
-	});
-</script>
+
 <style>
 	.a{
 		margin-top: 15%;
 		margin-left: 40%;
 	}
-</style>
-<style>
 	.authorsize{
 		font-size: 21px;
 	}
@@ -42,7 +29,7 @@
 </head>
 <body>
 <!-- banner -->
-<div class="banner">
+<div class="banner" th:fragment="navbar">
 	<!-- header -->
 	<div class="header">
 		<div class="container">
@@ -77,7 +64,7 @@
 		</div>
 	</div>
 	<!-- 会员注册 -->
-	<div class="a">
+	<div class="a" th:fragment="navbar">
 		<div id='regist_container' style="display: none;">
 			<div id="lab1">
 				<span id="lab_login">会员注册</span>
@@ -173,7 +160,7 @@
     }
     function bindList(offset) {
         $.ajax({
-            url : 'http://localhost:8884/blog/open/list?type=article&limit=10&offset=' + offset,
+            url : 'http://localhost:8884/blog/open/list?type=1&limit=10&offset=' + offset,
             type : 'get',
             dataType : 'json',
             success : function(data) {

@@ -46,7 +46,7 @@
     <option value="工具书">工具书</option>
 </select>
     <label onclick="selectNeedBook()" class="getS"> 查 询 </label>
-    <label onclick="" class="getS"> 显示全部</label>
+    <label onclick="selectNeedBook(1)" class="getS"> 显示全部</label>
 </div>
     <table id="mytable" border="1"  class="table table-border table-bordered table-striped">
         <tr >
@@ -75,9 +75,6 @@
             <td th:text="${book.total}">6</td>
             <td><input th:id="${book.id}" th:name="${book.id}" type="button" class="btn btn-success"
                        th:onclick="${book.flag} eq true ?  'cancelbook(this.id)': 'borrowbook(this.id)' " th:value="${book.flag} eq true ? '取消预约' : '预约'"></td>
-        </tr>
-        <tr>
-            <td><input type="button" class="btn btn-success radius b"  value="查询书籍"></td>
         </tr>
         </tbody>
     </table>
@@ -231,10 +228,13 @@
     /**
      * 条件查询书籍
      */
-    function selectNeedBook() {
+    function selectNeedBook(selecttype) {
         var name = document.getElementById("selectName");
         var author = document.getElementById("selectAuthor");
-        var type = document.getElementById("selectType").value;
+        var type = null;
+        if(selecttype==undefined){
+            type = document.getElementById("selectType").value;
+        }
         var cls = "";
         $.ajax({
             url: selectNeedBookUrl,
@@ -262,7 +262,6 @@
                     }else{
                         cls = 'active';
                     }
-                    alert("hhh:"+item.flag);
                     if(item.flag){
                         var temp1 = '取消预约';
                         var temp2 = 'cancelbook('+item.id+')';

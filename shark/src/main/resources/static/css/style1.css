@@ -25,6 +25,16 @@ ul,label{
 body a:hover{
 	text-decoration:none;
 }
+.bg{
+	background-image: url('../img/bg.jpg');
+}
+.article{
+	margin-left: 25%;
+	margin-right: 35%;
+	margin-bottom: 5%;
+	font-size: x-large;
+}
+
 /*-- banner --*/ 
 .banner{ 
 	background:url(../images/banner.jpg)no-repeat center bottom;
@@ -90,7 +100,7 @@ body a:hover{
 .menu {
     display: inline-block;
     box-sizing: border-box;
-    background: #4362ca;
+    background: #6699ff;
 	overflow: hidden;
     height: 50px;
     width: 55px;
@@ -2529,5 +2539,7 @@ h3.w3agileits-title {
 .wthree-text {
     margin: 1em 0;
 }
+
+
 }
 /*-- //responsive-design --*/

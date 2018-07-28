@@ -45,3 +45,11 @@ $('#regis_btn').click(function () {
         });
     }
 });
+//打开会员注册
+$("#Regist_start_").click(function() {
+    $("#regist_container").show(500);
+    $("#_close").animate({
+        height: '40px',
+        width: '40px'
+    }, 500);
+});

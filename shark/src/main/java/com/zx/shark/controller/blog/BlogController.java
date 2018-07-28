@@ -26,15 +26,13 @@ public class BlogController {
         return "index/index";
     }
 
-    //获取首页文章的集合
+        //获取首页文章的集合
     @ResponseBody
     @GetMapping("/open/list")
     public PageUtils openList(@RequestParam Map<String,Object> params){
         Query query = new Query(params);
-        System.out.println("起点:"+query.getOffset()+" 每页条数:"+query.getLimit());
         List<ContentDO> ContentList = contentService.list(query);
         int total = contentService.count(query);
-        System.out.print("条数："+total);
         PageUtils pageUtils = new PageUtils(ContentList,total);
         return pageUtils;
     }
@@ -44,7 +42,7 @@ public class BlogController {
         ContentDO contentDO = contentService.get(cid);
         modelAndView.addObject("bContent",contentDO);
         modelAndView.addObject("gtmModified", DateUtils.format(contentDO.getGtm_modified()));
-        modelAndView.setViewName("index/post");
+        modelAndView.setViewName("index/article");
         return modelAndView ;
     }
 
