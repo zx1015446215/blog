@@ -103,7 +103,8 @@ public class ControllerOne {
     public JSONResult sendSuccessMessage(){
         //将用户信息返回
         logger.info("sendSuccessMessage");
-        return JSONResult.ok(JSONResult.data);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return JSONResult.ok(principal);
     }
 
     //密码错误的

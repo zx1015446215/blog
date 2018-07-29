@@ -10,8 +10,9 @@ $('#regis_code').click(function () {
         $.ajax({
             url: SendCodeUrl,
             type: 'POST',
+            datatype: "json",
             data: {
-                email: email,
+                email: email
             },
             success: function (res) {
               trueCode=res;

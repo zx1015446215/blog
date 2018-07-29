@@ -155,6 +155,7 @@
         $.ajax({
             url: deleteBookUrl,
             type: "POST",
+            datatype: "json",
             data: {
                 ids : arr.toString()
             },
@@ -191,6 +192,7 @@
         $.ajax({
             url: 'http://localhost:8884/book/savebook',
             type: "POST",
+            datatype: "json",
             data: {
                 name: name,
                 type: type,

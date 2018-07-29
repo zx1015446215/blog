@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.DigestUtils;
 
 import java.util.ArrayList;
@@ -29,10 +30,12 @@ public class AuthenticationProvider implements org.springframework.security.auth
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username=authentication.getName();
         String password= (String) authentication.getCredentials();
-        System.out.println("username:"+username);
-        System.out.println("password:"+password);
-        User user = (User) userService.loadUserByUsername(username);
-//        if (password.equals(DigestUtils.md5Digest(user.getPassword().getBytes()))){
+        User user;
+        try {
+            user = (User) userService.loadUserByUsername(username);
+        }catch (Exception e){
+            throw  new UsernameNotFoundException("username is wrong");
+        }
         if(DigestUtils.md5DigestAsHex(password.getBytes()).equals(user.getPassword())){
             List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
             Role role=userServiceImpl.findRoleById(user.getId());

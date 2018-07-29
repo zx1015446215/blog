@@ -35,6 +35,7 @@ public class IndexController {
      */
     @RequestMapping("/login")
     public ModelAndView login(){
+        logger.info("login:");
         ModelAndView modelAndView=new ModelAndView("index/login");
         return modelAndView;
     }

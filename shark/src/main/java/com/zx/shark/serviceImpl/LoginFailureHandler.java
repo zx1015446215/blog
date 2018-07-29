@@ -19,7 +19,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException{
         response.setHeader("Access-Control-Allow-Origin", "*");
-        if(exception.getMessage().equals("password is wrong")){
+        System.out.println("Message:  "+exception.getMessage());
+        if(!exception.getMessage().equals("username is wrong")){
             redirectStrategy.sendRedirect(request,response,"/sendFailurePass");
         }else{
 

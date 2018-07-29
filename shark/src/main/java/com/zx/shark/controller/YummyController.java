@@ -4,6 +4,8 @@ import com.zx.shark.model.MenuDO;
 import com.zx.shark.model.Tree;
 import com.zx.shark.service.impl.MenuServiceImpl;
 import com.zx.shark.utils.JSONResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +23,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping("yummy")
 public class YummyController {
+    private static Logger logger =LoggerFactory.getLogger(YummyController.class);
     @Autowired
     MenuServiceImpl menuService;
     /**
@@ -39,6 +42,7 @@ public class YummyController {
      */
     @RequestMapping("/index_v1")
     public ModelAndView index_v1(){
+        logger.info("************************************");
         ModelAndView modelAndView=new ModelAndView("index_v1");
         List<Tree<MenuDO>> menus = menuService.listMenuTree();
         modelAndView.addObject("menus",menus);

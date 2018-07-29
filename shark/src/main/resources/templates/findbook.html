@@ -99,7 +99,8 @@
             $.ajax({
                 //与后台交互
                 url: borrowBookUrl,
-                type: "GET",
+                type: "get",
+                datatype: "json",
                 data: {
                     id : book_id
                 },
@@ -133,6 +134,7 @@
           //与后台交互
           url: cancelBookUrl,
           type: "GET",
+          datatype: "json",
           data: {
               id : book_id
           },
@@ -192,6 +194,7 @@
         $.ajax({
             url: deleteBookUrl,
             type: "POST",
+            datatype: "json",
             data: {
                 ids : arr.toString()
             },
@@ -239,6 +242,7 @@
         $.ajax({
             url: selectNeedBookUrl,
             type: "POST",
+            datatype: "json",
             data: {
                 name : name.value,
                 author : author.value,
@@ -278,18 +282,6 @@
                     htmlText += '<td id="'+item.id+'">'+item.remain+'</td>';
                     htmlText += '<td>'+item.total+'</td>';
                     htmlText += '<td><input id="'+item.id+'" name="'+item.id+'" type="button" class="btn btn-success" onclick="'+temp2+'" value="'+temp1+'"></td>';
-
-
-
-                    // var mytable = document.getElementById("mytable").insertRow(j++);
-                    //     mytable.insertCell(0).innerHTML=item.name;
-                    //     mytable.insertCell(1).innerHTML=item.type;
-                    //     mytable.insertCell(2).innerHTML=item.author;
-                    //     mytable.insertCell(3).innerHTML=item.company;
-                    //     mytable.insertCell(4).innerHTML=item.publishtime;
-                    //     mytable.insertCell(5).innerHTML=item.remain;
-                    //     mytable.insertCell(6).innerHTML=item.total;
-                    //     mytable.insertCell(7).innerHTML='<input id="'+item.id+'" name="'+item.id+'" type="button" class="btn btn-success" onclick="'+temp2+'" value="'+temp1+'">';
                 });
                 $("#tbody").append(htmlText);
             },

@@ -27,6 +27,7 @@ $('#regis_btn').click(function () {
         $.ajax({
             url: RegisterUrl,
             type: 'POST',
+            datatype: "json",
             data: {
                 username: username,
                 email: email,
