@@ -23,6 +23,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         HttpSessionRequestCache httpSessionRequestCache = new HttpSessionRequestCache();
         SavedRequest savedRequest = httpSessionRequestCache.getRequest(request, response);
         logger.info("登陆成功");

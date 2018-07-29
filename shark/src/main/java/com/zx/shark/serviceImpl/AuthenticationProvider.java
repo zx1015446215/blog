@@ -29,11 +29,12 @@ public class AuthenticationProvider implements org.springframework.security.auth
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username=authentication.getName();
         String password= (String) authentication.getCredentials();
+        System.out.println("username:"+username);
+        System.out.println("password:"+password);
         User user = (User) userService.loadUserByUsername(username);
 //        if (password.equals(DigestUtils.md5Digest(user.getPassword().getBytes()))){
         if(DigestUtils.md5DigestAsHex(password.getBytes()).equals(user.getPassword())){
             List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
-
             Role role=userServiceImpl.findRoleById(user.getId());
             logger.info("role*********:"+role.getName()+"password:"+password);
             auths.add(new SimpleGrantedAuthority(role.getName()));

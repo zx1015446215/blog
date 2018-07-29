@@ -10,6 +10,7 @@ $("#message_btn").click(function() {
   $.ajax({
     url: UserMessageUrl,
     type: "POST",
+    dataType: 'jsonp',
     data: {
       name: name,
       stu_card: stu_card,

@@ -102,7 +102,7 @@ public class ControllerOne {
     @ResponseBody
     public JSONResult sendSuccessMessage(){
         //将用户信息返回
-        System.out.println("sendSuccessMessage");
+        logger.info("sendSuccessMessage");
         return JSONResult.ok(JSONResult.data);
     }
 
@@ -110,7 +110,7 @@ public class ControllerOne {
     @ResponseBody
     @RequestMapping("/sendFailurePass")
     public JSONResult sendFailurePass(){
-        System.out.println("sendFailurePass");
+        logger.info("sendFailurePass");
         return JSONResult.errorMsg("110");
     }
 
@@ -118,7 +118,7 @@ public class ControllerOne {
     @RequestMapping("/sendFailureUsen")
     @ResponseBody
     public JSONResult sendFailureUsen(){
-        System.out.println("sendFailureUsen");
+        logger.info("sendFailureUsen");
         return JSONResult.errorMsg("120");
     }
 

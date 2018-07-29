@@ -18,8 +18,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     RedirectStrategy redirectStrategy= new DefaultRedirectStrategy();
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException{
+        response.setHeader("Access-Control-Allow-Origin", "*");
         if(exception.getMessage().equals("password is wrong")){
-
             redirectStrategy.sendRedirect(request,response,"/sendFailurePass");
         }else{
 

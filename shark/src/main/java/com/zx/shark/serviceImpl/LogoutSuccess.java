@@ -13,10 +13,10 @@ import java.io.IOException;
 
 @Configuration
 public class LogoutSuccess implements LogoutSuccessHandler {
-
     private static Logger logger= LoggerFactory.getLogger(LogoutSuccess.class);
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         logger.info("注销成功");
         response.sendRedirect("/yummy/login");
     }
