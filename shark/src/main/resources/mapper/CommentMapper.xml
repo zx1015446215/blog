@@ -11,7 +11,10 @@
     select *
     from comment
     where cid = #{cid}
-
   </select>
+  <insert id="saveComment" parameterType="com.zx.shark.model.Comment">
+    insert into comment (cid,user_id,parent_id,content,date)
+    values (#{cid},#{user_id},#{parent_id},#{content},#{date})
+  </insert>
 
 </mapper>

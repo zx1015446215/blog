@@ -9,4 +9,5 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
     List<Comment> selectByCid(Long cid);
+    void saveComment(Comment comment);
 }
