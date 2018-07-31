@@ -7,17 +7,27 @@
 <meta name="keywords" content="" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/button.css" rel="stylesheet">
 <link href="/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 <link href="/css/style1.css" type="text/css" rel="stylesheet" media="all">
 <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="all" property="" />
 <link href="/css/font-awesome.css" rel="stylesheet"> 			<!-- font-awesome icons -->
+<link href="/css/comment.css" rel="stylesheet">
 <link href="/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
 <link rel="stylesheet" href="/css/login.css" />
 <script src="/js/jquery-2.2.3.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/smoothscroll.min.js"></script>
+<script type="text/javascript" src="js/jquery.comment.js" ></script>
 
 <style>
+	.con{
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+	.content{
+		color: #1d1d1d;
+	}
 	.a{
 		margin-top: 15%;
 		margin-left: 40%;
@@ -129,7 +139,7 @@
 	</div>
 <br/><br/>
 <!-- Main Content -->
-	<div class="container">
+	<div id="inhere" class="container">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<!--加载内容 -->
@@ -143,6 +153,32 @@
 			</div>
 		</div>
 	</div>
+
+<div class="container">
+	<div class="commentbox">
+		<textarea cols="80" rows="50" placeholder="来说几句吧......" class="mytextarea" id="content"></textarea>
+		<div class="btn btn-info pull-right" id="comment">评论</div>
+	</div>
+	<div id="loadComment" class="comment-list">
+		<!--<div class="comment-info">-->
+			<!--<header><img src="./images/img.jpg"></header>-->
+			<!--<div class="comment-right">-->
+				<!--<h3>匿名</h3>-->
+				<!--<div class="comment-content-header"><span><i class="glyphicon glyphicon-time"></i> 2017-10-17 11:42:53</span><span><i class="glyphicon glyphicon-map-marker"></i>深圳</span></div>-->
+				<!--<p class="content">mongodb 副本集配置副本集概念：就我的理解就是和主从复制 差不多，就是在主从复制的基础上多加了一个选举的机制。-->
+				<!--<div class="comment-content-footer">-->
+					<!--<div class="row">-->
+						<!--<div class="col-md-10">-->
+							<!--<span><i class="glyphicon glyphicon-pushpin"></i> 来自:win10 </span><span><i class="glyphicon glyphicon-globe"></i> chrome 55.0.2883.87</span>-->
+						<!--</div>-->
+						<!--<div class="col-md-2"><span class="reply-btn">回复</span></div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="reply-list"></div>-->
+			<!--</div>-->
+		<!--</div>-->
+	</div>
+</div>
 	<!--页面加载更快-->
     <script src="/js/bootstrap.js"></script>
 </body>
@@ -158,8 +194,62 @@
     function nextPage() {
         bindList(currentPage * limit)
     }
+    function LoadSingleArticle(cid) {
+        //获取文章信息并动态加载
+        $.ajax({
+            url: 'http://localhost:8884/blog/open/post/' + cid,
+            type: 'get',
+            dataType: 'json',
+            success: function (article) {
+                var htmlText = "";
+                htmlText += '<div class="bg">';
+                htmlText += '<div class="article"><br/>';
+                htmlText += '<h1 align="center">' + article.title + '</h1><br/>';
+                htmlText += '<div><label>作者: </label>';
+                htmlText += '<a>&nbsp;' + article.author + '</a>';
+                htmlText += '</div>';
+                htmlText += '<div><label>时间: </label>';
+                htmlText += '<a>&nbsp;' + article.gtm_modified + '</a>';
+                htmlText += '</div>';
+                htmlText += '<div><label>内容: </label>';
+                htmlText += '<p class="content">' + article.content + '</p>';
+                htmlText += '</div>';
+                htmlText += '</div>';
+                htmlText += '<br/>';
+                htmlText += '<br/>';
+                htmlText += '</div>';
+                $("#inhere").html("");
+                $("#inhere").append(htmlText);
+                document.getElementById("inhere").className = "con";
+                getComment(cid);
+            }
+        });
+    }
+
+    function getComment(cid){
+        // 获取文章评论信息并动态加载
+        $.ajax({
+            url : 'http://localhost:8884/comment/list/'+cid,
+            type : 'get',
+            dataType : 'json',
+            success : function(data) {
+                var rows = data;
+                var htmlText = "";
+                for (i = 0; i < rows.length; i++) {
+                    htmlText += '<div class="comment-info"><header><img src="./images/img.jpg"></header><div class="comment-right"><h3>'+rows[i].user_id+'</h3>';
+                    htmlText += '<div class="comment-content-header"><span><i class="glyphicon glyphicon-time"></i>'+rows[i].date+'</span>';
+                    htmlText += '</div><p class="content">'+rows[i].content+'</p><div class="comment-content-footer"><div class="row"><div class="col-md-10">';
+                    htmlText += '</div><div class="col-md-2"><span class="reply-btn">回复</span></div></div></div></div></div>';
+                }
+                $("#loadComment").html("");
+                $("#loadComment").append(htmlText);
+            }
+        });
+    }
+
     function bindList(offset) {
         $.ajax({
+            // url : 'http://47.106.213.88:8884/blog/open/list?type=1&limit=10&offset=' + offset,
             url : 'http://localhost:8884/blog/open/list?type=1&limit=10&offset=' + offset,
             type : 'get',
             dataType : 'json',
@@ -169,7 +259,7 @@
                 var htmlText = "";
                 for (i = 0; i < rows.length; i++) {
                     htmlText += '<div class="post-preview">';
-                    htmlText += '<a href="/blog/open/post/' + rows[i].cid + '">';
+                    htmlText += '<a>';
                     htmlText += '<h2 class="post-title">';
                     htmlText += rows[i].title;
                     htmlText += '</h2>';
@@ -178,6 +268,8 @@
                         + rows[i].author
                         + '</a> &nbsp;&nbsp; '
                         + rows[i].gtm_modified + '</p>';
+                    // htmlText += '<a href="/blog/open/post/' + rows[i].cid + '"><input type="button" value="更多内容" class="btn size-L btn-primary radius" /></a>';
+                    htmlText += '<div><input type="button" onclick="'+'LoadSingleArticle('+rows[i].cid+')'+'" class="btn size-L btn-primary radius" value="更多内容"></div>';
                     htmlText += '</div>';
                     htmlText += '<hr>';
                 }
@@ -200,6 +292,25 @@
         $('.w3nav a').toggleClass('show-w3nav-link');
         $('.toggle').toggleClass('close');
     });
+
+
+
+
+
+
+    // $(function(){
+    //     // $(".comment-list").addCommentList({data:arr,add:""});
+    //     $("#comment").click(function(){
+    //         var obj = new Object();
+    //         obj.img="./images/img.jpg";
+    //         obj.replyName="匿名";
+    //         obj.content=$("#content").val();
+    //         obj.browse="深圳";
+    //         obj.osname="win10";
+    //         obj.replyBody="";
+    //         $(".comment-list").addCommentList({data:[],add:obj});
+    //     });
+    // })
 </script>
 <!-- //menu js -->
 <script src="/js/owl.carousel.js"></script>

@@ -1,4 +1,6 @@
-const  UserMessageUrl="http://localhost:8884/reader"
+// const  UserMessageUrl="http://47.106.213.88:8884/reader"
+const  UserMessageUrl="http://localhost:8884/reader";
+
 
 $("#message_btn").click(function() {
   var name = $("#name").val(),

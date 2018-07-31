@@ -49,6 +49,7 @@ public class ArticleController {
             logger.info("从缓存中获取了用户: "+"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
             created = user.getId();
         }
+        System.out.println("created:  "+created);
         map.put("created",created);
         List<ContentDO> contents = contentService.list(map);
         modelAndView.addObject("contents",contents);
@@ -62,7 +63,7 @@ public class ArticleController {
         String author = request.getParameter("author");
         String categories = request.getParameter("categories");
         String content = request.getParameter("content");
-        Long created=0L;
+        Long created=1L;
         //从Security获取用户名
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username= (String) authentication.getPrincipal();

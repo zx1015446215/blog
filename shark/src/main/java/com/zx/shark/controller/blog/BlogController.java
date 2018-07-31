@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,12 +42,13 @@ public class BlogController {
     }
 
     @GetMapping("/open/post/{cid}")
-    ModelAndView post(@PathVariable("cid") long cid, ModelAndView modelAndView){
+    @ResponseBody
+    ContentDO post(@PathVariable("cid") long cid){
         ContentDO contentDO = contentService.get(cid);
-        modelAndView.addObject("bContent",contentDO);
-        modelAndView.addObject("gtmModified", DateUtils.format(contentDO.getGtm_modified()));
-        modelAndView.setViewName("index/article");
-        return modelAndView ;
+//        modelAndView.addObject("bContent",contentDO);
+//        modelAndView.addObject("gtmModified",Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+//        modelAndView.setViewName("index/article");
+        return contentDO ;
     }
 
     @GetMapping("/open/page/{categories}")

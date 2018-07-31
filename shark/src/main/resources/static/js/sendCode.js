@@ -1,3 +1,4 @@
+// const SendCodeUrl = "http://47.106.213.88:8884/sendCode";
 const SendCodeUrl = "http://localhost:8884/sendCode";
 
 $('#regis_code').click(function () {

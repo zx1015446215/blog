@@ -1,3 +1,4 @@
+// const  loginUrl="http://47.106.213.88:8884/index/login";
 const  loginUrl="http://localhost:8884/index/login";
 
 $(document).ready(function () {
@@ -32,12 +33,12 @@ function login() {
     },
     success: function(res) {
       var num = res.status;
-      if (num === 200) {
+      if (num == 200) {
         alert("登录成功，即将跳转到主界面"+res.data);
       window.location.href="/yummy/index_v1";
       window.event.returnValue=false;
       alert("测试");
-      } else if (num === 500) {
+      } else if (num == 500) {
         var nb = res.msg;
         if (nb == 110) {
           alert("密码错误，请重新填写");
