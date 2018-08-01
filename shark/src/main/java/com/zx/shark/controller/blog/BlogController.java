@@ -51,16 +51,9 @@ public class BlogController {
         return contentDO ;
     }
 
-    @GetMapping("/open/page/{categories}")
-        ModelAndView about(@PathVariable("categories")String categories,ModelAndView modelAndView){
-        Map<String, Object> map = new HashMap<>(16);
-        map.put("categories", categories);
-        ContentDO bContentDO =null;
-        if(contentService.list(map).size()>0){
-            bContentDO = contentService.list(map).get(0);
-        }
-        modelAndView.addObject("bContent", bContentDO);
-        modelAndView.setViewName("index/post");
+    @GetMapping("/open/communication")
+        ModelAndView communication(){
+        ModelAndView modelAndView = new ModelAndView("communication");
         return modelAndView;
         }
 }

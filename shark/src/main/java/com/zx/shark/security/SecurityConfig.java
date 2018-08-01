@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/js/**","/css/**","/images/**","/img/**","/blog/**","/fonts/**").permitAll()
                 .mvcMatchers("/index/**","/comment/**").permitAll()
-                .mvcMatchers("/yummy/**","/book/**","/user/**").hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
+                .mvcMatchers("/yummy/**","/book/**","/user/**","/role/**").hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
                 .mvcMatchers("/*").permitAll()
                 .anyRequest().authenticated()
                 .and()

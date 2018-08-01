@@ -119,8 +119,10 @@
 </body>
 <script src="/js/jquery.min.js?v=2.1.4"></script>
 <script type="application/javascript">
-    // const deleteBookUrl='http://47.106.213.88:8884/book/deletebook';
-    const deleteBookUrl='http://localhost:8884/book/deletebook';
+    const deleteBookUrl='http://47.106.213.88:8884/book/deletebook',
+           addbookUrl ='http://47.106.213.88:8884/book/savebook';
+    // const deleteBookUrl='http://localhost:8884/book/deletebook',
+    //       addbookUrl ='http://localhost:8884/book/savebook';
 
     function addbook() {
         $('.login-form-mask').fadeIn(100);
@@ -192,7 +194,7 @@
             f = mytable.insertCell(6),
             g = mytable.insertCell(7);
         $.ajax({
-            url: 'http://localhost:8884/book/savebook',
+            url: addbookUrl,
             type: "POST",
             datatype: "json",
             data: {

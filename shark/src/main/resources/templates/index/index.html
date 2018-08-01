@@ -47,7 +47,7 @@
 					<div class="toggle"></div>
 					<ul class="w3nav">
 						<li><a href="/blog" class="active"> 主页</a></li>
-						<li><a href="/blog/open/page/communication">交流</a></li>
+						<li><a href="/blog/open/communication">交流</a></li>
 						<!--<li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Short Codes <span class="caret"></span></a>-->
 							<!--<ul class="dropdown-menu">-->
 								<!--<li><a href="http://www.baidu.com">测试1</a></li>-->
@@ -181,7 +181,8 @@
     //获取文章信息并动态加载
     function LoadSingleArticle(cid) {
         $.ajax({
-            url: 'http://localhost:8884/blog/open/post/' + cid,
+            url: 'http://47.106.213.88:8884/blog/open/post/' + cid,
+            // url: 'http://localhost:8884/blog/open/post/' + cid,
             type: 'get',
             dataType: 'json',
             success: function (article) {
@@ -215,7 +216,8 @@
         var content = $("#content").val();
         var parent_id = 0;
         $.ajax({
-            url : 'http://localhost:8884/comment/saveComment',
+            url : 'http://47.106.213.88:8884/comment/saveComment',
+            // url : 'http://localhost:8884/comment/saveComment',
             type : 'get',
             dataType : 'json',
 			data : {
@@ -223,7 +225,34 @@
 				content : content
 			},
             success : function(){
-                alert("成功");
+                var htmlText = "";
+                //获取时间
+                var time = new Date();   // 程序计时的月从0开始取值后+1
+                var m = time.getMonth() + 1;
+                var data = time.getFullYear() + "-" + m + "-"
+                    + time.getDate() + " " + time.getHours() + ":"
+                    + time.getMinutes() + ":" + time.getSeconds();
+                $("#content").html("");
+                htmlText += '<div class="comment-info">';
+                htmlText += '<header><img src="./images/niming.jpg"></header>';
+                htmlText += '<div class="comment-right">';
+                htmlText += '<h3>匿名</h3>';   //id
+                htmlText += '<div class="comment-content-header">';
+                htmlText += '<span><i class="glyphicon glyphicon-time"></i>'+data+'</span>';  //时间
+                htmlText += '</div>';
+                htmlText += '<p class="content">'+content+'</p>';       //评论内容
+                htmlText += '<div class="comment-content-footer">';
+                htmlText += '<div class="row">';
+                htmlText += '<div class="col-md-10">';
+                htmlText += '</div>';
+                // htmlText += '<div class="col-md-2"><span class="reply-btn">回复</span>';
+                // htmlText += '</div>';
+                htmlText += '</div>';
+                htmlText += '</div>';
+                htmlText += '</div>';
+                htmlText += '</div>';
+                // $("#loadComment").append(htmlText);
+                $("#loadComment").prepend(htmlText);  //加入到最前面
             }
         });
 	});
@@ -235,20 +264,20 @@
     function getComment(cid){
         document.getElementById("commentContainer").style.display = "block";
         $.ajax({
-            url : 'http://localhost:8884/comment/list/'+cid,
+            url : 'http://47.106.213.88:8884/comment/list/'+cid,
+            // url : 'http://localhost:8884/comment/list/'+cid,
             type : 'get',
             dataType : 'json',
             success : function(rows) {
                 //解析List<Tree<Comment>>
-				alert("length:"+rows.length);
                 var htmlText = "";
                 for (i = 0; i < rows.length; i++) {
                     //rows[i]  等价于Tree<Comment>
 					var map = rows[i].attributes;
                     htmlText += '<div class="comment-info">';
-                    htmlText += '<header><img src="./images/img.jpg"></header>';
+                    htmlText += '<header><img src="./images/niming.jpg"></header>';
                     htmlText += '<div class="comment-right">';
-                    htmlText += '<h3>'+map["user_id"]+'</h3>';   //id
+                    htmlText += '<h3>匿名</h3>';   //id
                     htmlText += '<div class="comment-content-header">';
                     htmlText += '<span><i class="glyphicon glyphicon-time"></i>'+map["date"]+'</span>';  //时间
                     htmlText += '</div>';
@@ -261,9 +290,9 @@
                     // htmlText += '</div>';
                     htmlText += '</div>';
                     htmlText += '</div>';
-                    //开始子节点
-                    htmlText += '<div class="reply-list">';
                     if(rows[i].hasChildren == true){
+                        //开始子节点
+                        htmlText += '<div class="reply-list">';
                         //此处的child等价于List<Tree<T>>
                         var child = rows[i].children;
                         for(j=0;j<child.length;j++){
@@ -279,8 +308,10 @@
                             //结束一个小子节点
                             htmlText += '</div>';
 						}
+
+                        //结束子节点
+                        htmlText += '</div>';
 					}
-                    //结束子节点
                     htmlText += '</div>';
                     htmlText += '</div>';
                 }
@@ -292,8 +323,8 @@
 
     function bindList(offset) {
         $.ajax({
-            // url : 'http://47.106.213.88:8884/blog/open/list?type=1&limit=10&offset=' + offset,
-            url : 'http://localhost:8884/blog/open/list?type=1&limit=10&offset=' + offset,
+            url : 'http://47.106.213.88:8884/blog/open/list?type=1&limit=10&offset=' + offset,
+            // url : 'http://localhost:8884/blog/open/list?type=1&limit=10&offset=' + offset,
             type : 'get',
             dataType : 'json',
             success : function(data) {

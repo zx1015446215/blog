@@ -38,6 +38,11 @@ public class ControllerOne {
     RedisTemplate redisTemplate;
 //    @Autowired   //mongodb
 //    UserRepository userRepository;
+    @RequestMapping("")
+    public String main(){
+        return  "index/index";
+    }
+
     private static  final Logger logger= LoggerFactory.getLogger(ControllerOne.class);
     @RequestMapping("/logout")
     @ResponseBody
