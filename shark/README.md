@@ -4,12 +4,10 @@
 借用bootdo来建立自己的博客
 
 #### 软件架构
-前端: thymeleaf+js+jQuery+bootstrap
-后端: SpringBoot+SpringMVC作为主框架
+1.前端: thymeleaf+js+jQuery+bootstrap
+2.后端: SpringBoot+SpringMVC作为主框架
       SpringSecurity作为安全框架并提供权限管理
 
-
-3. xxxx
 
 #### 使用说明
 
