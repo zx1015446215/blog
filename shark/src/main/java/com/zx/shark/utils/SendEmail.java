@@ -56,7 +56,7 @@ public class SendEmail {
 
     public void setQqDefaultProperties(){
         properties = new Properties();
-        properties.setProperty("mail.smtp.host","smtp.qq.com");
+        properties.setProperty("mail.smtp.host","smtp.163.com");
         properties.setProperty("mail.smtp.auth","true");
         properties.setProperty("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
         properties.setProperty("mail.smtp.port", "465");

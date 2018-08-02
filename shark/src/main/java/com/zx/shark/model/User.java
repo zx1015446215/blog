@@ -19,8 +19,9 @@ public class User implements UserDetails,Serializable {
     @Column(unique = true)
     private String username;
 
-
     private String password;
+
+    private String email;
 
     @ManyToMany(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
     private List<Role> roles=new ArrayList<Role>();
@@ -33,13 +34,22 @@ public class User implements UserDetails,Serializable {
         this.roles = roles;
     }
 
-    public User(Long id, String username, String password) {
+    public User(Long id, String username, String password, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public User() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getId() {

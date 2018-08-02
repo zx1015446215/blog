@@ -9,6 +9,8 @@ public class MenuDO implements Serializable{
     // 父菜单ID，一级菜单为0
     private Long parentId;
 
+    private Long roleId;
+
     private String name;
 
     private String url;
@@ -24,6 +26,14 @@ public class MenuDO implements Serializable{
     private Date gmtCreate;
     // 修改时间
     private Date gmtModified;
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
 
     public Long getMenuId() {
         return menuId;

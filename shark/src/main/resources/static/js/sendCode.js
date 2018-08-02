@@ -1,9 +1,10 @@
 const SendCodeUrl = "http://47.106.213.88:8884/sendCode";
 // const SendCodeUrl = "http://localhost:8884/sendCode";
-
+var countdown = 60;
 $('#regis_code').click(function () {
     var email = $('#email').val();
     var reg = /\w+[@]{1}\w+[.]\w+/;
+    var obj = $("#regis_code");
     if (!!!reg.test($('#email').val())) {
         alert('请输入正确的email地址');
         return;
@@ -21,7 +22,24 @@ $('#regis_code').click(function () {
             },
             error : function () {
                 alert("邮件发送失败");
+            },
+            complete : function () {
+                settime(obj);
             }
         });
     }
 });
+function settime(obj) { //发送验证码倒计时
+    if (countdown == 0) {
+        obj.attr('disabled',false);
+        //obj.removeattr("disabled");
+        obj.val("免费获取验证码");
+        countdown = 60;
+        return;
+    } else {
+        obj.attr('disabled',true);
+        obj.val("重新发送(" + countdown + ")");
+        countdown--;
+    }
+    setTimeout(function() {settime(obj) },1000)
+}

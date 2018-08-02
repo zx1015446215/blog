@@ -12,7 +12,7 @@ import java.util.Map;
 public interface BookMapper {
     List<Book> selectAllBooks();
     void insertBook(Book book);
-    void deleteBook(List<Integer> ids,int user_id);
+    void deleteBook(List<Integer> ids);
     void insertUserBook(UserBook userBook);
     void updateBookRemain(int book_id);
     void rebackBookRemain(int book_id);

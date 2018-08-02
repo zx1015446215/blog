@@ -42,7 +42,7 @@ function login() {
         if (nb == 110) {
           alert("密码错误，请重新填写");
         } else if (nb == 120) {
-          alert("用户名错误，请重新填写");
+          alert("用户名不存在，请重新填写");
         }
       }
     },

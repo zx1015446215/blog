@@ -37,8 +37,8 @@
     from  book
     <where>
       <if test="id != null and id != ''"> and id = #{id} </if>
-      <if test="name != null and name != ''"> and name = #{name} </if>
-      <if test="author != null and author != ''"> and author = #{author} </if>
+      <if test="name != null and name != ''"> and name REGEXP #{name} </if>
+      <if test="author != null and author != ''"> and author REGEXP #{author} </if>
       <if test="type != null and type != ''"> and type = #{type} </if>
       <if test="company != null and company != ''"> and company = #{company} </if>
       <if test="publishtime != null and publishtime != ''"> and publishtime = #{publishtime} </if>
@@ -58,7 +58,6 @@
     <foreach collection="list" item="id" open="(" separator="," close=")">
       #{id}
     </foreach>
-    and user_id = {#user_id}
   </delete>
   
   <!--存储借书人信息和书的信息-->

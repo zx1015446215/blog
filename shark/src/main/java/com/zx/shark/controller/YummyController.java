@@ -7,6 +7,7 @@ import com.zx.shark.utils.JSONResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,13 +43,13 @@ public class YummyController {
      */
     @RequestMapping("/index_v1")
     public ModelAndView index_v1(){
-        logger.info("************************************");
         ModelAndView modelAndView=new ModelAndView("index_v1");
         List<Tree<MenuDO>> menus = menuService.listMenuTree();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         modelAndView.addObject("menus",menus);
-        modelAndView.addObject("name", "zhansan");
+        modelAndView.addObject("name", principal);
         modelAndView.addObject("picUrl","/img/touxiang.jpg");
-        modelAndView.addObject("username","zhangsan");
+        modelAndView.addObject("username",principal);
         return modelAndView;
     }
 

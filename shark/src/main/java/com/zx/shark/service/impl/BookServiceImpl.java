@@ -49,24 +49,8 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public void removeBook(List<Integer> ids) {
-        int user_id;
-        //从SecurityContextHolder中获取用户名
-        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
-        String username = String.valueOf(authentication.getPrincipal());
-        //从redis缓存中查找用户信息
-        ValueOperations<String,User> operations=redisTemplate.opsForValue();
-        boolean haskey= redisTemplate.hasKey(username);
-        //若缓存中存在
-        if(haskey){
-            User user=operations.get(username);
-            user_id = Math.toIntExact(user.getId());
-        }else {
-            //根据用户名从数据库中获取用户的id
-            User user = userService.findUserByUsername(username);
-            user_id = Math.toIntExact(user.getId());
-        }
 
-        bookMapper.deleteBook(ids,user_id);
+        bookMapper.deleteBook(ids);
     }
 
     /**

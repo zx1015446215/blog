@@ -9,4 +9,5 @@ import java.util.List;
 @Mapper
 public interface MenuDOMapper {
     List<MenuDO> selectAll();
+    List<MenuDO> selectByRoleId(Long roleId);
 }

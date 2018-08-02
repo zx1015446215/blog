@@ -141,6 +141,12 @@ public class BookController {
         List<Book> books = new ArrayList<>();
         String name = request.getParameter("name");
         String author = request.getParameter("author");
+        if(name!=null&&name.length()!=0){
+            name = name+"+";
+        }
+        if(author!=null&&author.length()!=0){
+            author = author+"+";
+        }
         String type = request.getParameter("type");
         Book need = new Book(name,author,type);
         try{

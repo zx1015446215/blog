@@ -5,15 +5,16 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from user
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.zx.shark.model.User">
-    insert into user (id, username, password
+    insert into user (id, username, password , email
       )
-    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zx.shark.model.User">
@@ -23,16 +24,16 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.zx.shark.model.User">
-    select id, username, password
+    select id, username, password, email
     from user
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, username, password
+    select id, username, password, email
     from user
   </select>
   <select id="selectByUsername" parameterType="java.lang.String" resultType="com.zx.shark.model.User">
-    select id, username, password
+    select id, username, password, email
     from user
     where username = #{username,jdbcType=VARCHAR}
   </select>

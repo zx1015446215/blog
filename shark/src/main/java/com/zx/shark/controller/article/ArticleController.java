@@ -3,6 +3,7 @@ package com.zx.shark.controller.article;
 import com.zx.shark.model.ContentDO;
 import com.zx.shark.model.User;
 import com.zx.shark.service.ContentService;
+import com.zx.shark.service.impl.UserServiceImpl;
 import com.zx.shark.utils.JSONResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,11 +33,13 @@ public class ArticleController {
     ContentService contentService;
     @Autowired
     RedisTemplate redisTemplate;
+    @Autowired
+    UserServiceImpl userService;
     @RequestMapping
     public ModelAndView index(){
         ModelAndView modelAndView = new ModelAndView("articlelist");
         Map<String,Object> map = new HashMap<>();
-        Long created=0L;
+        Long created;
         //从Security获取用户名
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username= (String) authentication.getPrincipal();
@@ -48,8 +51,11 @@ public class ArticleController {
             User user=operations.get(username);
             logger.info("从缓存中获取了用户: "+"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
             created = user.getId();
+        }else {
+            //根据用户名从数据库中获取用户的id
+            User user = userService.findUserByUsername(username);
+            created = user.getId();
         }
-        System.out.println("created:  "+created);
         map.put("created",created);
         List<ContentDO> contents = contentService.list(map);
         modelAndView.addObject("contents",contents);

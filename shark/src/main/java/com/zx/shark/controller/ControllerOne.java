@@ -61,12 +61,14 @@ public class ControllerOne {
         //用户信息注册
         String username=request.getParameter("username");
         String password = DigestUtils.md5DigestAsHex(request.getParameter("password").getBytes());
+        String email = request.getParameter("email");
         //获取随机用户id
         Long user_id=Long.valueOf(new SimpleDateFormat("ssSSS").format(new Date()).toString());
-        User user=new User(user_id,username,password);
-        //判断是用户注册还是管理员注册
+        User user=new User(user_id,username,password,email);
+        System.out.println(email);
+        //判断是用户注册还是管理员注册email
         String roleName=request.getParameter("role");
-        Long roles_id=1L;
+        Long roles_id=2L;  //2L代表用户注册，一般管理员是自己
         //用户信息和权限信息关联
         User_Roles user_roles=new User_Roles(user_id,roles_id);
         try {
@@ -87,13 +89,13 @@ public class ControllerOne {
     @ResponseBody
     public String sendCode(@RequestParam("email")String email) throws UnsupportedEncodingException, MessagingException {
         System.out.println("email:" +email);
-        SendEmail sendEmail = new SendEmail("1015446215@qq.com","fekkhdlydifebchd");
+        SendEmail sendEmail = new SendEmail("zx1015446215@163.com","zzzx19961026");
         sendEmail.setQqDefaultProperties();
         sendEmail.initMessage();
         Random random = new Random();
         String str = getUUID();
         String code = str.substring(0,4);
-        sendEmail.setDefaultMessagePros("验证码",code,email,"星星公司");
+        sendEmail.setDefaultMessagePros("验证码",code,email,"zx博客");
         sendEmail.sendMessage();
         System.out.println("发送成功"+code);
         return code;

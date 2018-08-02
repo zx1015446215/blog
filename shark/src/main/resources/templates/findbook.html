@@ -238,9 +238,11 @@
     function selectNeedBook(selecttype) {
         var name = document.getElementById("selectName");
         var author = document.getElementById("selectAuthor");
-        var type = null;
-        if(selecttype==undefined){
-            type = document.getElementById("selectType").value;
+        var type = document.getElementById("selectType");
+        if(selecttype!=undefined){
+            name.value = "";
+            author.value = "";
+            type.value = "";
         }
         var cls = "";
         $.ajax({
@@ -250,7 +252,7 @@
             data: {
                 name : name.value,
                 author : author.value,
-                type : type
+                type : type.value
             },
             error: function(e) {
                 console.log("error", e.statusText);

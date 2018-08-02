@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zx.shark.model.MenuDO" >
     <id column="menu_id" property="menuId" jdbcType="BIGINT" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="perms" property="perms" jdbcType="VARCHAR" />
@@ -14,6 +15,12 @@
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
   <select id="selectAll" resultMap="BaseResultMap">
-    select * from menu
+    select *
+    from menu
+  </select>
+  <select id="selectByRoleId" resultMap="BaseResultMap">
+    select  *
+    from menu
+    where role_id in (#{roleId},0)
   </select>
 </mapper>
