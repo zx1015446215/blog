@@ -20,7 +20,7 @@
     order by id DESC
   </select>
   <!--获取用户预约书籍的id集合-->
-  <select id="selectUserBooks" parameterType="java.lang.String" resultType="java.lang.Integer">
+  <select id="selectUserBooks" parameterType="java.lang.String" resultType="java.lang.Long">
 --     select book_id from user_book where user_id in (select id from user where username = 'zhuxin')
   select book_id
   from user_book,user
@@ -67,18 +67,6 @@
   </insert>
 
 
-  <!--修改书的信息，将书的剩余量减1-->
-  <update id="updateBookRemain" parameterType="java.lang.Integer">
-    UPDATE book
-    SET remain = (remain-1)
-    WHERE id = #{id}
-  </update>
-    <!--修改书的信息，将书的剩余量加1-->
-    <update id="rebackBookRemain" parameterType="java.lang.Integer">
-    UPDATE book
-    SET remain = (remain+1)
-    WHERE id = #{id}
-  </update>
     <!--修改user_book，取消联系-->
     <delete id="deleteUserBook" parameterType="com.zx.shark.model.UserBook">
     delete  from user_book

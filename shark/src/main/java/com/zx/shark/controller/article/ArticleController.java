@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -64,11 +65,8 @@ public class ArticleController {
 
     @RequestMapping("/addArticle")
     @ResponseBody
-    public JSONResult addArticle(HttpServletRequest request){
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        String categories = request.getParameter("categories");
-        String content = request.getParameter("content");
+    public JSONResult addArticle(@RequestParam String title,@RequestParam String author,
+                                 @RequestParam String categories,@RequestParam String content){
         Long created=1L;
         //从Security获取用户名
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -97,13 +95,8 @@ public class ArticleController {
     }
     @RequestMapping("/updateArticle")
     @ResponseBody
-    public JSONResult updateArticle(HttpServletRequest request){
-        System.out.println("updateArticle");
-        Long cid = Long.valueOf(request.getParameter("cid"));
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        String categories = request.getParameter("categories");
-        String content = request.getParameter("content");
+    public JSONResult updateArticle(@RequestParam Long cid,@RequestParam String title,@RequestParam String author,
+                                    @RequestParam String categories,@RequestParam String content){
         Timestamp gtm_modified = new Timestamp(System.currentTimeMillis());
         ContentDO contentDO = new ContentDO(cid,title,content,categories,author,gtm_modified);
         System.out.println(contentDO.toString());

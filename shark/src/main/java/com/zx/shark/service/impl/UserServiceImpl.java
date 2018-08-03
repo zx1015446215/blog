@@ -30,11 +30,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void registerUser(User user, User_Roles user_roles) {
+    public void registerUser(User user) {
 //        存入redis
         ValueOperations<String,User> operations=redisTemplate.opsForValue();
         userMapper.insert(user);
-        roleMapper.insertUser_Roles(user_roles);
         operations.set(user.getUsername(),user,30, TimeUnit.SECONDS);
         logger.info("用户插入缓存 >> " +"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
 
@@ -60,11 +59,6 @@ public class UserServiceImpl implements UserService {
             logger.info("用户插入缓存 >> " +"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
         }
         return user;
-    }
-
-    @Override
-    public void saveRole(Role role) {
-        roleMapper.insert(role);
     }
 
     @Override

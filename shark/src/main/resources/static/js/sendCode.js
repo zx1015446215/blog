@@ -1,5 +1,5 @@
-const SendCodeUrl = "http://47.106.213.88:8884/sendCode";
-// const SendCodeUrl = "http://localhost:8884/sendCode";
+// const SendCodeUrl = "http://47.106.213.88:8884/sendCode";
+const SendCodeUrl = "http://localhost:8884/sendCode";
 var countdown = 60;
 $('#regis_code').click(function () {
     var email = $('#email').val();

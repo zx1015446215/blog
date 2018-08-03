@@ -36,8 +36,6 @@ public class ControllerOne {
     UserServiceImpl userServiceImpl;
     @Autowired
     RedisTemplate redisTemplate;
-//    @Autowired   //mongodb
-//    UserRepository userRepository;
     @RequestMapping("")
     public String main(){
         return  "index/index";
@@ -52,30 +50,23 @@ public class ControllerOne {
             new SecurityContextLogoutHandler().logout(request,response,auth);
             logger.info("注销---------------");
         }
-        return "redirect:/yummy/login?logout";
+        return "redirect:/blog";
     }
 
     @RequestMapping("/register")
     @ResponseBody
-    public JSONResult register(HttpServletRequest request){
-        //用户信息注册
-        String username=request.getParameter("username");
-        String password = DigestUtils.md5DigestAsHex(request.getParameter("password").getBytes());
-        String email = request.getParameter("email");
+    public JSONResult register(@RequestParam String username,@RequestParam String password,
+                               @RequestParam String email){
+        String pass = DigestUtils.md5DigestAsHex(password.getBytes());
         //获取随机用户id
         Long user_id=Long.valueOf(new SimpleDateFormat("ssSSS").format(new Date()).toString());
-        User user=new User(user_id,username,password,email);
-        System.out.println(email);
-        //判断是用户注册还是管理员注册email
-        String roleName=request.getParameter("role");
-        Long roles_id=2L;  //2L代表用户注册，一般管理员是自己
+        User user=new User(user_id,username,pass,email);
         //用户信息和权限信息关联
-        User_Roles user_roles=new User_Roles(user_id,roles_id);
         try {
-            userServiceImpl.registerUser(user,user_roles);
+            userServiceImpl.registerUser(user);
         }catch (Exception e){
             logger.info("错误信息: "+e);
-            return JSONResult.ok();
+            return JSONResult.errorMsg("110");
         }
         ValueOperations<String,User> operations=redisTemplate.opsForValue();
         operations.set(user.getUsername(),user,30, TimeUnit.SECONDS);
@@ -95,7 +86,7 @@ public class ControllerOne {
         Random random = new Random();
         String str = getUUID();
         String code = str.substring(0,4);
-        sendEmail.setDefaultMessagePros("验证码",code,email,"zx博客");
+        sendEmail.setDefaultMessagePros("验证码","感谢来到zx的博客,您的验证码是:"+code,email,"zx博客");
         sendEmail.sendMessage();
         System.out.println("发送成功"+code);
         return code;

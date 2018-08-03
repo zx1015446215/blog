@@ -59,8 +59,8 @@ public class BookServiceImpl implements BookService{
      */
     @Transactional
     @Override
-    public void borrowBook(int book_id) {
-        int user_id;
+    public void borrowBook(Long book_id){
+        Long user_id;
         //从SecurityContextHolder中获取用户名
         Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
         String username = String.valueOf(authentication.getPrincipal());
@@ -70,17 +70,16 @@ public class BookServiceImpl implements BookService{
         //若缓存中存在
         if(haskey){
             User user=operations.get(username);
-            user_id = Math.toIntExact(user.getId());
+            user_id = user.getId();
         }else {
             //根据用户名从数据库中获取用户的id
             User user = userService.findUserByUsername(username);
-            user_id = Math.toIntExact(user.getId());
+            user_id = user.getId();
         }
         //将book_id和user_id添加如数据库表book_user中，并在book中将remain减少1
         UserBook userBook = new UserBook(user_id,book_id);
 
         bookMapper.insertUserBook(userBook);
-        bookMapper.updateBookRemain(book_id);
     }
 
     /**
@@ -89,8 +88,8 @@ public class BookServiceImpl implements BookService{
      */
     @Transactional
     @Override
-    public void cancelBorrow(int book_id) {
-        int user_id;
+    public void cancelBorrow(Long book_id) {
+        Long user_id;
         //从SecurityContextHolder中获取用户名
         Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
         String username = String.valueOf(authentication.getPrincipal());
@@ -100,14 +99,13 @@ public class BookServiceImpl implements BookService{
         //若缓存中存在
         if(haskey){
             User user=operations.get(username);
-            user_id = Math.toIntExact(user.getId());
+            user_id = user.getId();
         }else {
             //根据用户名从数据库中获取用户的id
             User user = userService.findUserByUsername(username);
-            user_id = Math.toIntExact(user.getId());
+            user_id = user.getId();
         }
         UserBook userBook = new UserBook(user_id,book_id);
-        bookMapper.rebackBookRemain(book_id);
         bookMapper.deleteUserBook(userBook);
     }
 

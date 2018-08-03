@@ -3,7 +3,7 @@ package com.zx.shark.model;
 import java.sql.Date;
 
 public class Book {
-    private int id;
+    private Long id;
     private String name;  //书名
     private String author;  //作者
     private String type;   //类别
@@ -12,7 +12,7 @@ public class Book {
     private int remain;    //剩余数量
     private int total;     //总数
     private Boolean flag = false;    //判断用户是否预约了此书
-    public Book(int id,String name,String type ,String author, String company, Date publishtime, int remain, int total) {
+    public Book(Long id,String name,String type ,String author, String company, Date publishtime, int remain, int total) {
 
         this.name = name;
         this.type=type;
@@ -55,11 +55,11 @@ public class Book {
         this.flag = flag;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

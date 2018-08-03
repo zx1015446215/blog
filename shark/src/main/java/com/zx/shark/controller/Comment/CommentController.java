@@ -7,10 +7,7 @@ import com.zx.shark.model.Tree;
 import com.zx.shark.service.impl.CommentServiceImpl;
 import com.zx.shark.utils.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
@@ -31,9 +28,7 @@ public class CommentController {
     }
 
     @RequestMapping("/saveComment")
-    public JSONResult saveComment(HttpServletRequest request){
-        Long parent_id = Long.valueOf(request.getParameter("parent_id"));
-        String content = request.getParameter("content");
+    public JSONResult saveComment(@RequestParam Long parent_id,@RequestParam String content){
         try {
             commentService.saveComment(parent_id, content);
         }catch (Exception e){

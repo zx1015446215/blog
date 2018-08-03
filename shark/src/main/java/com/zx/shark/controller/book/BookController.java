@@ -64,13 +64,9 @@ public class BookController {
      */
     @RequestMapping("savebook")
     @ResponseBody
-    public JSONResult savebook(HttpServletRequest request){
-        String name = request.getParameter("name");
-        String type = request.getParameter("type");
-        String author = request.getParameter("author");
-        String company = request.getParameter("company");
-        Date date = Date.valueOf(request.getParameter("publishtime"));
-        int total = Integer.parseInt(request.getParameter("total"));
+    public JSONResult savebook(@RequestParam String name,@RequestParam String type,@RequestParam String author,
+                               @RequestParam String company,@RequestParam String publishtime,@RequestParam int total){
+        Date date = Date.valueOf(publishtime);
         Book book = new Book(name,type,author,company,date,total);
         try {
             bookMapper.insertBook(book);
@@ -83,13 +79,12 @@ public class BookController {
 
     /**
      * 删除书籍
-     * @param request
      * @return
      */
     @RequestMapping("deletebook")
     @ResponseBody
-    public JSONResult deletebook(HttpServletRequest request){
-        String[] ttr = request.getParameter("ids").split(",");
+    public JSONResult deletebook(@RequestParam String ids){
+        String[] ttr = ids.split(",");
         List<Integer> booksId = new ArrayList<>();
         for(int i=0;i<ttr.length;i++){
             booksId.add(Integer.valueOf(ttr[i]));
@@ -104,27 +99,25 @@ public class BookController {
 
     /**
      * 预约书籍
-     * @param request
      * @return
      */
     @RequestMapping("borrowbook")
     @ResponseBody
-    public JSONResult borrowbook(HttpServletRequest request){
-        int book_id = Integer.parseInt(request.getParameter("id"));
-
-        try {
-            bookService.borrowBook(book_id);
-        }catch (Exception e){
-            System.out.println("预约书籍失败的原因:"+e.toString());
-            return JSONResult.errorMsg("预约失败");
-        }
+    public JSONResult borrowbook(@RequestParam String id){
+        Long book_id = Long.valueOf(id);
+        bookService.borrowBook(book_id);
         return JSONResult.ok();
     }
 
+    /**
+     * 取消预约
+     * @param id
+     * @return
+     */
     @RequestMapping("/cancelbook")
     @ResponseBody
-    public JSONResult cancelbook(HttpServletRequest request){
-        int book_id = Integer.parseInt(request.getParameter("id"));
+    public JSONResult cancelbook(@RequestParam String id){
+        Long book_id = Long.valueOf(id);
 
          try{
              bookService.cancelBorrow(book_id);
@@ -135,19 +128,26 @@ public class BookController {
 
         return JSONResult.ok();
     }
+
+    /**
+     * 按条件查询书籍
+     * @param name
+     * @param author
+     * @param type
+     * @return
+     */
     @RequestMapping("/selectNeedbook")
     @ResponseBody
-    public JSONResult selectNeedbook(HttpServletRequest request){
+    public JSONResult selectNeedbook(@RequestParam String name,@RequestParam String author,
+                                     @RequestParam String type){
         List<Book> books = new ArrayList<>();
-        String name = request.getParameter("name");
-        String author = request.getParameter("author");
         if(name!=null&&name.length()!=0){
             name = name+"+";
         }
         if(author!=null&&author.length()!=0){
             author = author+"+";
         }
-        String type = request.getParameter("type");
+//        String type = request.getParameter("type");
         Book need = new Book(name,author,type);
         try{
             books=bookService.selectNeedBook(need);

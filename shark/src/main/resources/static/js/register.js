@@ -1,5 +1,5 @@
-const RegisterUrl = "http://47.106.213.88:8884/register";
-// const RegisterUrl = "http://localhost:8884/register";
+// const RegisterUrl = "http://47.106.213.88:8884/register";
+const RegisterUrl = "http://localhost:8884/register";
 
 
 $('#regis_btn').click(function () {
@@ -38,9 +38,9 @@ $('#regis_btn').click(function () {
             },
             success: function (res) {
                 var num = res.status;
-                if(num === 200){
+                if(num == 200){
                     alert("注册成功，即将返回登录页面");
-                    location.href="/yummy/login";
+                    location.href="/index/login";
                 }else{
                      alert("用户名已存在，请重新输入");
                 }

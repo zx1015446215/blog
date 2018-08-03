@@ -9,13 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface BookMapper {
+public interface BookMapper{
     List<Book> selectAllBooks();
     void insertBook(Book book);
     void deleteBook(List<Integer> ids);
     void insertUserBook(UserBook userBook);
-    void updateBookRemain(int book_id);
-    void rebackBookRemain(int book_id);
     void deleteUserBook(UserBook userBook);
     int countBooks();
     List<Integer> selectUserBooks(String username);
