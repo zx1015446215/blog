@@ -12,8 +12,12 @@ body a{
 	text-decoration:none;
 	outline:none;
 }
+.authorsize{
+    font-size: x-large;
+	margin-bottom: 5px;
+}
 h1,h2,h3,h4,h5,h6{
-	margin:0; 
+	margin:2px;
 }
 p{
 	margin:0;
@@ -26,18 +30,17 @@ body a:hover{
 	text-decoration:none;
 }
 .bg{
-	background-image: url('../img/bg.jpg');
+	/*background-image: url('../img/bg.jpg');*/
 }
 .article{
-	margin-left: 25%;
-	margin-right: 35%;
+	margin-left: 15%;
 	margin-bottom: 5%;
 	font-size: x-large;
 }
 
 /*-- banner --*/ 
 .banner{ 
-	background:url(../images/banner.jpg)no-repeat center bottom;
+	background:url('https://raw.githubusercontent.com/zx1015446215/blog/master/imgs/banner.jpg')no-repeat center bottom;
 	-webkit-background-size:cover; 
 	-moz-background-size:cover; 
 	-o-background-size:cover;
@@ -288,7 +291,7 @@ body a:hover{
 }
 p {
     font-size: 1em;
-    color: #999;
+    color: #1d1e1f;
     line-height: 1.8em;
 }
 .welcome-w3lleft {
@@ -1903,7 +1906,10 @@ h2.typoh2{
 } 
 @media(max-width:1080px){
 .banner-w3lstext h2, .banner-w3lstext h3 {
-    font-size: 5em; 
+    font-size: 7em;
+}
+.banner-w3lstext p{
+	font-size: 5em;
 }
 .banner-text {
     margin-top: 13em;
@@ -2539,7 +2545,9 @@ h3.w3agileits-title {
 .wthree-text {
     margin: 1em 0;
 }
-
+.content{
+	color: #1d1e1f;
+}
 
 }
 /*-- //responsive-design --*/

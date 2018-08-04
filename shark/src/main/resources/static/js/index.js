@@ -28,7 +28,7 @@ function LoadSingleArticle(cid) {
             var htmlText = "";
             htmlText += '<div class="bg">';
             htmlText += '<div class="article"><br/>';
-            htmlText += '<h1 align="center">' + article.title + '</h1><br/>';
+            htmlText += '<h1>' + article.title + '</h1><br/>';
             htmlText += '<div><label>作者: </label>';
             htmlText += '<a>&nbsp;' + article.author + '</a>';
             htmlText += '</div>';

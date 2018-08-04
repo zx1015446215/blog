@@ -1,8 +1,8 @@
 .combg{
-    background-image: url('../img/combg.jpg');
+    background-image: url('https://raw.githubusercontent.com/zx1015446215/blog/master/imgs/combg.jpg');
 }
 .erweima{
-    background-image: url('../img/erweima.jpg');
+    background-image: url('https://raw.githubusercontent.com/zx1015446215/blog/master/imgs/erweima.jpg');
     height: 399px;
     width: 792px;
 }
