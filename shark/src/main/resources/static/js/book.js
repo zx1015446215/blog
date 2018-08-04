@@ -1,7 +1,7 @@
-// const deleteBookUrl='http://47.106.213.88:8884/book/deletebook',
-//        addbookUrl ='http://47.106.213.88:8884/book/savebook';
-const deleteBookUrl='http://localhost:8884/book/deletebook',
-    addbookUrl ='http://localhost:8884/book/savebook';
+const deleteBookUrl='http://47.106.213.88:8884/book/deletebook',
+       addbookUrl ='http://47.106.213.88:8884/book/savebook';
+// const deleteBookUrl='http://localhost:8884/book/deletebook',
+//     addbookUrl ='http://localhost:8884/book/savebook';
 
 function addbook() {
     $('.login-form-mask').fadeIn(100);

@@ -1,11 +1,11 @@
-// const loadArticleUrl = 'http://47.106.213.88:8884/blog/open/post/',
-// 	  loadArticleConmment = 'http://47.106.213.88:8884/comment/list/',
-// 	  savaComment = 'http://47.106.213.88:8884/comment/saveComment',
-// 	  loadAllArticle = 'http://47.106.213.88:8884/blog/open/list?type=1&limit=10&offset=';
-const loadArticleUrl = 'http://localhost:8884/blog/open/post/',
-    loadArticleConmment = 'http://localhost:8884/comment/list/',
-    savaComment = 'http://localhost:8884/comment/saveComment',
-    loadAllArticle = 'http://localhost:8884/blog/open/list?type=1&limit=10&offset=';
+const loadArticleUrl = 'http://47.106.213.88:8884/blog/open/post/',
+	  loadArticleConmment = 'http://47.106.213.88:8884/comment/list/',
+	  savaComment = 'http://47.106.213.88:8884/comment/saveComment',
+	  loadAllArticle = 'http://47.106.213.88:8884/blog/open/list?type=1&limit=10&offset=';
+// const loadArticleUrl = 'http://localhost:8884/blog/open/post/',
+//     loadArticleConmment = 'http://localhost:8884/comment/list/',
+//     savaComment = 'http://localhost:8884/comment/saveComment',
+//     loadAllArticle = 'http://localhost:8884/blog/open/list?type=1&limit=10&offset=';
 
 var limit = 10;
 var currentPage = 0;

@@ -1,5 +1,5 @@
-// const  loginUrl="http://47.106.213.88:8884/index/login";
-const  loginUrl="http://localhost:8884/index/login";
+const  loginUrl="http://47.106.213.88:8884/index/login";
+// const  loginUrl="http://localhost:8884/index/login";
 
 $(document).ready(function () {
     $("#login_btn").on('click',function(){login();});

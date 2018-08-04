@@ -1,7 +1,7 @@
-// const addArticleUrl='http://47.106.213.88:8884/article/addArticle',
-//     updateArticleUrl='http://47.106.213.88:8884/article/updateArticle';
-const addArticleUrl='http://localhost:8884/article/addArticle',
-    updateArticleUrl='http://localhost:8884/article/updateArticle';
+const addArticleUrl='http://47.106.213.88:8884/article/addArticle',
+    updateArticleUrl='http://47.106.213.88:8884/article/updateArticle';
+// const addArticleUrl='http://localhost:8884/article/addArticle',
+//     updateArticleUrl='http://localhost:8884/article/updateArticle';
 function addArticleform() {
     $('.login-form-mask').fadeIn(100);
     $('.login-form').slideDown(200);
