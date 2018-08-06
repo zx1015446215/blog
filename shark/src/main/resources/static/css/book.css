@@ -20,7 +20,7 @@ table th{text-align:left; font-weight:400}
 .table-bg thead th{background-color:#F5FAFE}
 /*带外边框*/
 .table-bordered{border:1px solid #ddd;border-collapse:separate;*border-collapse:collapse;border-left:0}
-.table-bordered th,.table-bordered td{border-left:1px solid #ddd}
+.table-bordered th,.table-bordered td{border-left:1px solid #ddd;overflow: hidden}
 .table-border.table-bordered{border-bottom:0}
 
 /*奇数行背景设为浅灰色*/

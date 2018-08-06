@@ -1,6 +1,3 @@
-const RegisterUrl = "http://47.106.213.88:8884/register";
-// const RegisterUrl = "http://localhost:8884/register";
-
 
 $('#regis_btn').click(function () {
     var $k = $('.form-control'),

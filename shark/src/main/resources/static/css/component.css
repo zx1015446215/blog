@@ -10,7 +10,7 @@
 }
 
 .demo-1 .large-header {
-	background-image: url('https://raw.githubusercontent.com/zx1015446215/blog/master/imgs/demo-1-bg.jpg');
+	background-image: url('../img/demo-1-bg.jpg');
 }
 .logo_box{
 	width: 400px;

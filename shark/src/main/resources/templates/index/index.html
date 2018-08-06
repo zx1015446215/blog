@@ -51,8 +51,8 @@
 				</div>
 				<div class="header-right">
 					<ul>
-						<li><a href="/index/login">SignIn</a></li>
-						<li><a id="Regist_start_">SignUp</a></li>
+						<li><a href="/index/login">登录</a></li>
+						<li><a id="Regist_start_">注册</a></li>
 					</ul>
 					<div class="clearfix"> </div>
 				</div>
@@ -60,8 +60,9 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- 会员注册 -->
-	<div class="a" th:fragment="navbar">
+	<div class="a">
 		<div id='regist_container' style="display: none;">
 			<div id="lab1">
 				<span id="lab_login">会员注册</span>
@@ -82,6 +83,7 @@
 			</div>
 		</div>
 	</div>
+
 		<!-- banner-text -->
 		<div class="banner-text"> 
 			<div class="container">
@@ -126,34 +128,37 @@
 	</div>
 <br/><br/>
 <!-- Main Content -->
-	<div id="inhere" class="container">
-		<div class="row">
-			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+	<!--<div id="inhere" class="container">-->
+<div class="row zx-article">
+		<div class="col-md-6">
+			<div class="col-lg-offset-1 col-md-10 col-md-offset-1">
 				<!--加载内容 -->
 				<div id="incomeNum"></div>
 
 				<div class="clearfix">
-					<p id="flagLoaded" style="display: none; text-align: center;">已全部加载</p>
-					<a id="flagLoad" style="display: none;" class="btn btn-secondary float-right"
+					<p id="flagLoaded" style="display: none; text-align: center;font-size: x-large">已全部加载</p>
+					<a id="flagLoad" style="display: none;font-size: x-large" class="btn btn-secondary float-right"
 					   href="javascript:void(0)" onclick="nextPage()">更早 &rarr;</a>
 				</div>
 			</div>
 		</div>
-	</div>
-
-<div id="commentContainer" class="container"  style="display: none">
-	<div class="commentbox">
-		<textarea cols="80" rows="50" placeholder="来说几句吧......" class="mytextarea" id="content"></textarea>
-		<div class="btn btn-info pull-right" id="comment">评论</div>
-	</div>
-	<div id="loadComment" class="comment-list">
-		//动态添加恢复内容
-
-	</div>
+		<div class="">
+			<div id="inhere">
+			</div>
+			<div id="commentContainer" class="container" style="display: none">
+				<div class="commentbox">
+					<textarea cols="200" rows="50" placeholder="来说几句吧......" class="mytextarea" id="content"></textarea>
+					<div class="btn btn-info pull-right" id="comment">评论</div>
+				</div>
+				<div id="loadComment" class="comment-list">
+				</div>
+			</div>
+		</div>
 </div>
 </body>
 <!--页面加载更快-->
 <script src="/js/bootstrap.js"></script>
+<script src="/js/const.js"></script>
 <script src="/js/index.js"></script>
 <!-- menu js -->
 <script>

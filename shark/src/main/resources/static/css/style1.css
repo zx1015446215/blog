@@ -32,22 +32,59 @@ body a:hover{
 .bg{
 	/*background-image: url('../img/bg.jpg');*/
 }
+.circle {
+	height: 100%;
+	width: 100%;
+	background-color: #ffffff;
+	border: 8px solid #c4e3f3;
+	text-align: center;
+	border-radius: 50%
+}
+.hiddenarticle{
+	width:100%;
+	background: #ffffff;
+	top:20%;
+	left:30%;
+	right: 10%;
+	position: absolute;
+	margin-top:-100px;
+	margin-left:-100px;
+}
+.zx-fenye{
+	align-items: center;
+}
+.bg-article1{
+	background-image: url("../img/bg-article1.jpg");
+}
+.bg-article2{
+	background-image: url("../img/bg-article2.jpg");
+}
+.zx-articlemargin{
+	margin: 5px;
+	/*background-color: #ffffff;*/
+}
+.zx-article{
+	padding: 3px;
+	/*background-image: url("../img/bg-article.jpg");*/
+}
 .article{
-	margin-left: 15%;
+	margin-left: 3%;
 	margin-bottom: 5%;
 	font-size: x-large;
 }
 
 /*-- banner --*/ 
 .banner{ 
-	background:url('https://raw.githubusercontent.com/zx1015446215/blog/master/imgs/banner.jpg')no-repeat center bottom;
-	-webkit-background-size:cover; 
+	/*background:url('https://raw.githubusercontent.com/zx1015446215/blog/master/imgs/banner.jpg')no-repeat center bottom;*/
+	background:url('../images/banner.jpg')no-repeat center bottom;
+	-webkit-background-size:cover;
 	-moz-background-size:cover; 
 	-o-background-size:cover;
 	-ms-background-size:cover; 	
 	background-size:cover; 
 	min-height: 790px;
-} 
+}
+
 /*-- header --*/ 
 .header {
     padding-top: 2em;

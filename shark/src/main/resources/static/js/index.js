@@ -1,12 +1,3 @@
-const loadArticleUrl = 'http://47.106.213.88:8884/blog/open/post/',
-	  loadArticleConmment = 'http://47.106.213.88:8884/comment/list/',
-	  savaComment = 'http://47.106.213.88:8884/comment/saveComment',
-	  loadAllArticle = 'http://47.106.213.88:8884/blog/open/list?type=1&limit=10&offset=';
-// const loadArticleUrl = 'http://localhost:8884/blog/open/post/',
-//     loadArticleConmment = 'http://localhost:8884/comment/list/',
-//     savaComment = 'http://localhost:8884/comment/saveComment',
-//     loadAllArticle = 'http://localhost:8884/blog/open/list?type=1&limit=10&offset=';
-
 var limit = 10;
 var currentPage = 0;
 var total;
@@ -44,7 +35,7 @@ function LoadSingleArticle(cid) {
             htmlText += '</div>';
             $("#inhere").html("");
             $("#inhere").append(htmlText);
-            document.getElementById("inhere").className = "con";
+            // document.getElementById("inhere").className = "con";
             getComment(cid);
         }
     });
@@ -169,7 +160,7 @@ function bindList(offset) {
             total = data.total;
             var htmlText = "";
             for (i = 0; i < rows.length; i++) {
-                htmlText += '<div class="post-preview">';
+                htmlText += '<div class="post-preview zx-articlemargin circle">';
                 htmlText += '<a>';
                 htmlText += '<h2 class="post-title">';
                 htmlText += rows[i].title;
@@ -179,6 +170,7 @@ function bindList(offset) {
                     + rows[i].author
                     + '</a> &nbsp;&nbsp; '
                     + rows[i].gtm_modified + '</p>';
+                htmlText += '<div class="authorsize" style="width:100%; height:90px; line-height:30px; overflow:hidden; position:relative;">'+rows[i].content+'</div>'
                 htmlText += '<div><input type="button" onclick="'+'LoadSingleArticle('+rows[i].cid+')'+'" class="btn size-L btn-primary radius" value="更多内容"></div>';
                 htmlText += '</div>';
                 htmlText += '<hr>';

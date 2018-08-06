@@ -1,7 +1,3 @@
-const addArticleUrl='http://47.106.213.88:8884/article/addArticle',
-    updateArticleUrl='http://47.106.213.88:8884/article/updateArticle';
-// const addArticleUrl='http://localhost:8884/article/addArticle',
-//     updateArticleUrl='http://localhost:8884/article/updateArticle';
 function addArticleform() {
     $('.login-form-mask').fadeIn(100);
     $('.login-form').slideDown(200);
@@ -94,7 +90,9 @@ function updateArticle(cid) {
     var a = b.siblings();  //获取td的兄弟节点
     a[0].innerHTML="<input type='text' value='"+a[0].innerText+"'/>";
     a[1].innerHTML="<input type='text' value='"+a[1].innerText+"'/>";
-    a[2].innerHTML="<textarea cols='40' rows='5'>"+a[2].innerText+"</textarea>";
+    var s = a[2].getElementsByTagName("textarea");
+    s[0].disabled=false;
+    s[0].value=s[0].placeholder;
     a[3].innerHTML="<input type='text' value='"+a[3].innerText+"'/>";
     btn.value="确认";   //改变值
     btn.onclick = function (ev) {   //改变动作

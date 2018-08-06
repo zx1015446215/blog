@@ -12,10 +12,14 @@
         height: 30px;
         margin-left: auto;
     }
+    /*.tableClass tr td{*/
+        /*height : 5%;*/
+        /*line-height : 20px;*/
+    /*}*/
 </style>
 </head>
 <body>
-<table id="mytable" border="1"  class="table table-border table-bordered table-striped">
+<table id="mytable" border="1" class="table-bordered">
     <tr >
         <td hidden="hidden">cid</td>
         <td>标题</td>
@@ -29,13 +33,14 @@
         <td>操作</td>
     </tr>
     <tbody id="tbody">
-
     <tr th:name="${content.cid}" th:each="content : ${contents}" th:class="active">
         <!--<td><input type="checkbox" name="checkbook" th:value="${book.id}"></td>-->
         <!--<td th:text="${book.id}" hidden="hidden">1</td>-->
         <td th:text="${content.title}">0</td>
         <td th:text="${content.author}">1</td>
-        <td th:text="${content.content}">2</td>
+        <!--<td th:text="${content.content}">2</td>-->
+        <!--<td><input type="text" cols='40' rows='5' th:value="${content.content}" >1</td>-->
+        <td><textarea id="zxtext" cols='55' rows='7' th:placeholder="${content.content}" disabled></textarea></td>
         <td th:text="${content.categories}">3</td>
         <td th:text="${content.comments_num}">4</td>
         <td th:text="${content.status} eq 1 ? 已发布 : 未发布">5</td>
@@ -76,5 +81,6 @@
 <div class="login-form-mask"></div>
 </body>
 <script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/const.js"></script>
 <script src="/js/article.js"></script>
 </html>
