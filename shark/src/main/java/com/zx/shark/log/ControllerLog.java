@@ -20,8 +20,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class ControllerLog {
     private final static Logger logger = LoggerFactory.getLogger(ControllerLog.class);
     private Log log = new Log();

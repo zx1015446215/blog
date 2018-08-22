@@ -1,5 +1,5 @@
-// const uu = "localhost";
-const uu = "47.106.213.88";
+const uu = "localhost";
+// const uu = "47.106.213.88";
 const loginUrl =  "http://"+uu+":8884/index/login";
 const RegisterUrl = "http://"+uu+":8884/register";
 const SendCodeUrl = "http://"+uu+":8884/sendCode";

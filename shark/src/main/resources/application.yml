@@ -44,3 +44,16 @@ spring:
 mybatis:
   type-aliases-package: com.xyxz.serviceuser.model
   mapper-locations: classpath:mapper/*.xml
+
+github:
+  client:
+    clientId: 71569962aff4670e996a
+    clientSecret: d21bf1e4a35a081703ee991fe7331b62d943b0a6
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+    callback: http://localhost:8884/login/github/callback
+    registered-redirect-uri: http://localhost:8884/login/github/callback
+    use-current-uri: false
+  resource:
+    userInfoUri: https://api.github.com/user
