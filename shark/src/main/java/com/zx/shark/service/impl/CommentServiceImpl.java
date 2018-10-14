@@ -14,10 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -42,7 +39,9 @@ public class CommentServiceImpl implements CommentService {
             tree.setText(comment.getContent());
             Map<String,Object> attributes = new HashMap<>();
             attributes.put("user_id",comment.getUser_id());
-            attributes.put("date",comment.getDate());
+            //转换时间格式2018-08-05 16:33:32.0
+            attributes.put("date",comment.getDate().toString().substring(0,19));
+            System.out.println(comment.getDate().toString().substring(0,19));
             tree.setAttributes(attributes);
             trees.add(tree);
         }

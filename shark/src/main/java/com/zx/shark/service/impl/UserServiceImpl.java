@@ -33,10 +33,15 @@ public class UserServiceImpl implements UserService {
     public void registerUser(User user) {
 //        存入redis
         ValueOperations<String,User> operations=redisTemplate.opsForValue();
-        userMapper.insert(user);
+        try {
+            userMapper.insert(user);
+        }catch (Exception e){
+            System.out.println("已存在用户:"+user.getId());
+            return ;
+        }
         operations.set(user.getUsername(),user,30, TimeUnit.SECONDS);
         logger.info("用户插入缓存 >> " +"id: "+ user.getId()+", username: "+user.getUsername()+",password: "+user.getPassword());
-
+        return ;
         //mongodb插入数据
 //       userRepository.save(user);
 

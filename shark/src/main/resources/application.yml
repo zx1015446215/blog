@@ -14,7 +14,7 @@ spring:
     name: service-zuul
   datasource:
       username: root
-      password:
+      password: 123456
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/zxblog?useUnicode=true&characterEncoding=UTF-8
   thymeleaf:
@@ -52,8 +52,8 @@ github:
     accessTokenUri: https://github.com/login/oauth/access_token
     userAuthorizationUri: https://github.com/login/oauth/authorize
     clientAuthenticationScheme: form
-    callback: http://localhost:8884/login/github/callback
-    registered-redirect-uri: http://localhost:8884/login/github/callback
+    callback: http://www.zhxshark.com:8884/login/github/callback
+    registered-redirect-uri: http://www.zhxshark.com:8884/login/github/callback
     use-current-uri: false
   resource:
     userInfoUri: https://api.github.com/user

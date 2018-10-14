@@ -16,6 +16,8 @@ function LoadSingleArticle(cid) {
         type: 'get',
         dataType: 'json',
         success: function (article) {
+            var d = new Date( article.gtm_modified);
+            var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
             var htmlText = "";
             htmlText += '<div class="bg">';
             htmlText += '<div class="article"><br/>';
@@ -24,7 +26,7 @@ function LoadSingleArticle(cid) {
             htmlText += '<a>&nbsp;' + article.author + '</a>';
             htmlText += '</div>';
             htmlText += '<div><label>时间: </label>';
-            htmlText += '<a>&nbsp;' + article.gtm_modified + '</a>';
+            htmlText += '<a>&nbsp;' + times + '</a>';
             htmlText += '</div>';
             htmlText += '<div><label>内容: </label>';
             htmlText += '<p class="content">' + article.content + '</p>';

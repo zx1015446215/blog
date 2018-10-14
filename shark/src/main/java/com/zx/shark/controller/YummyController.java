@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -45,15 +46,15 @@ public class YummyController {
      * @return
      */
     @RequestMapping("/index_v1")
-    public ModelAndView index_v1(@RequestParam("user") String user){
+    public ModelAndView index_v1(HttpServletRequest request){
         ModelAndView modelAndView=new ModelAndView("index_v1");
         List<Tree<MenuDO>> menus = menuService.listMenuTree();
         modelAndView.addObject("menus", menus);
         modelAndView.addObject("picUrl", "/img/touxiang.jpg");
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(user!=null){
-            modelAndView.addObject("name", user);
-            modelAndView.addObject("username", user);
+        if(request.getParameterMap().containsKey("user")){
+            modelAndView.addObject("name", request.getParameter("user"));
+            modelAndView.addObject("username",request.getParameter("user"));
         }else {
             modelAndView.addObject("name", principal);
             modelAndView.addObject("username", principal);

@@ -31,6 +31,12 @@ public class LoginController {
     @Autowired
     HttpClient httpClient;
 
+
+    @RequestMapping("/qq")
+    public String qq(){
+        return "test";
+    }
+
     @RequestMapping("/github")
     public String github(HttpServletRequest request){
         System.out.println("------github-------");
@@ -92,7 +98,7 @@ public class LoginController {
         MultiValueMap<String, String> params= new LinkedMultiValueMap<String, String>();
         params.add("grant_type", "authorization_code");
         params.add("code",code);
-        params.add("redirect_uri","http://localhost:8884/login/callback");
+        params.add("redirect_uri","www.zhxshark.com:8884/login/callback");
         params.add("client_id","71569962aff4670e996a");
         params.add("client_secret","d21bf1e4a35a081703ee991fe7331b62d943b0a6");
         //发送http请求并返回结果

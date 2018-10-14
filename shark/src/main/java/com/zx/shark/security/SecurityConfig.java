@@ -1,6 +1,8 @@
 package com.zx.shark.security;
 
 
+import com.zx.shark.filter.QQAuthenticationFilter;
+import com.zx.shark.filter.QQAuthenticationManager;
 import com.zx.shark.serviceImpl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
@@ -19,6 +21,7 @@ import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticat
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.Filter;
@@ -60,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(qqAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/js/**","/login/**","/css/**","/images/**","/img/**","/blog/**","/fonts/**").permitAll()
                 .mvcMatchers("/index/**","/comment/**").permitAll()
@@ -84,6 +88,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
 
+    /**
+     * 自定义 QQ登录 过滤器
+     */
+    private QQAuthenticationFilter qqAuthenticationFilter(){
+        QQAuthenticationFilter authenticationFilter = new QQAuthenticationFilter("/login/qq");
+        //SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler();
+        //successHandler.setAlwaysUseDefaultTargetUrl(true);
+        //successHandler.setDefaultTargetUrl("/user");
+//        MyAuthenticationSuccessHandler successHandler = new MyAuthenticationSuccessHandler();
+        authenticationFilter.setAuthenticationManager(new QQAuthenticationManager());
+//        authenticationFilter.setAuthenticationSuccessHandler(successHandler);
+        return authenticationFilter;
+    }
 
     private Filter ssoFilter() {
         OAuth2ClientAuthenticationProcessingFilter githubFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/github");

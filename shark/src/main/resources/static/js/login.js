@@ -15,7 +15,6 @@ function login() {
     }
   var name = $("#username").val(),
     pass = $("#password").val();
-
   $.ajax({
     url: loginUrl,
     type: "POST",
