@@ -38,7 +38,6 @@ public class BookController {
     UserServiceImpl userService;
     @Autowired
     BookMapper bookMapper;
-
     //书的首页
     @RequestMapping("/main")
     public ModelAndView main(){

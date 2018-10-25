@@ -1,21 +1,13 @@
 package com.zx.shark.controller;
 
-import com.zx.shark.mapper.MenuDOMapper;
-import com.zx.shark.model.MenuDO;
-import com.zx.shark.model.Tree;
-import com.zx.shark.service.impl.MenuServiceImpl;
-import org.apache.catalina.security.SecurityUtil;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 首页页面的控制器

@@ -3,15 +3,13 @@ server:
     remote-ip-header: x-forwarded-for
     protocol-header: x-forwarded-proto
     port-header: X-Forwarded-Port
-  port: 8884
+#  port: 8884
   use-forward-headers: true
   compression:
     enabled: true
     min-response-size: 1024
     mime-types: image/png,image/jpeg,image/jpg,application/json,application/xml,text/html,text/css,text/plain,application/javascript
 spring:
-  application:
-    name: service-zuul
   datasource:
       username: root
       password: 123456
@@ -52,8 +50,9 @@ github:
     accessTokenUri: https://github.com/login/oauth/access_token
     userAuthorizationUri: https://github.com/login/oauth/authorize
     clientAuthenticationScheme: form
-    callback: http://www.zhxshark.com:8884/login/github/callback
-    registered-redirect-uri: http://www.zhxshark.com:8884/login/github/callback
+    callback: http://www.zhxshark.com/shark/login/github/callback
+    registered-redirect-uri: http://www.zhxshark.com/shark/login/github/callback
     use-current-uri: false
+    grant_type: authorization_code
   resource:
     userInfoUri: https://api.github.com/user

@@ -56,6 +56,7 @@ public class SendEmail {
 
     public void setQqDefaultProperties(){
         properties = new Properties();
+        properties.put("username","zx1015446215@163.com");
         properties.setProperty("mail.smtp.host","smtp.163.com");
         properties.setProperty("mail.smtp.auth","true");
         properties.setProperty("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
@@ -83,6 +84,7 @@ public class SendEmail {
      * @param rec  设置邮件接收人
      */
     public void setDefaultMessagePros(String sub,String text,String rec,String from) throws MessagingException, UnsupportedEncodingException {
+        mimeMessage.addRecipients(Message.RecipientType.CC,InternetAddress.parse(properties.getProperty("username")));
         mimeMessage.setSubject(sub);
         mimeMessage.setText(text);
         mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(rec));
