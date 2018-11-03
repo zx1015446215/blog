@@ -62,7 +62,7 @@ public class LoginController {
         }
         return "test";
     }
-    @RequestMapping("/callback")
+    @RequestMapping("/github/callback")
     public String code(HttpServletRequest request){
         String code = request.getParameter("code");
         String accessToken = getAccessToken(code);

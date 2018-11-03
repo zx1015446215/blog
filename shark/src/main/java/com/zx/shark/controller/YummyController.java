@@ -47,6 +47,7 @@ public class YummyController {
      */
     @RequestMapping("/index_v1")
     public ModelAndView index_v1(HttpServletRequest request){
+        logger.info("进入index_v1");
         ModelAndView modelAndView=new ModelAndView("index_v1");
         List<Tree<MenuDO>> menus = menuService.listMenuTree();
         modelAndView.addObject("menus", menus);

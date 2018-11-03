@@ -5,7 +5,7 @@
     <id column="cid" property="cid" jdbcType="BIGINT" />
     <result column="user_id" property="user_id" jdbcType="BIGINT" />
     <result column="content" property="content" jdbcType="VARCHAR"/>
-    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="startDate" property="startDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <select id="selectByCid" resultMap="BaseResultMap">
     select *
@@ -13,8 +13,8 @@
     where cid = #{cid}
   </select>
   <insert id="saveComment" parameterType="com.zx.shark.model.Comment">
-    insert into comment (cid,user_id,parent_id,content,date)
-    values (#{cid},#{user_id},#{parent_id},#{content},#{date})
+    insert into comment (cid,user_id,parent_id,content,startDate)
+    values (#{cid},#{user_id},#{parent_id},#{content},#{startDate})
   </insert>
 
 </mapper>

@@ -3,7 +3,7 @@ server:
     remote-ip-header: x-forwarded-for
     protocol-header: x-forwarded-proto
     port-header: X-Forwarded-Port
-#  port: 8884
+  port: 80
   use-forward-headers: true
   compression:
     enabled: true
@@ -35,10 +35,11 @@ spring:
          min-idle: 0    #最大空闲连接
          max-idle: 8    #最大空闲连接
       timeout: 0
-  data:
-    mongodb:
-      host: localhost
-      uri: mongodb://localhost/zxlog
+#  data:
+#    mongodb:
+#      host: localhost
+#      uri: mongodb://localhost:27010/zxlog
+#      port: 27010
 mybatis:
   type-aliases-package: com.xyxz.serviceuser.model
   mapper-locations: classpath:mapper/*.xml
@@ -50,8 +51,8 @@ github:
     accessTokenUri: https://github.com/login/oauth/access_token
     userAuthorizationUri: https://github.com/login/oauth/authorize
     clientAuthenticationScheme: form
-    callback: http://www.zhxshark.com/shark/login/github/callback
-    registered-redirect-uri: http://www.zhxshark.com/shark/login/github/callback
+    callback: http://www.zhxshark.com/login/github/callback
+    registered-redirect-uri: http://www.zhxshark.com/login/github/callback
     use-current-uri: false
     grant_type: authorization_code
   resource:

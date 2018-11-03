@@ -83,6 +83,7 @@ public class ArticleController {
         Timestamp date = new Timestamp(System.currentTimeMillis());
         Timestamp gtm_create = date;
         Timestamp gtm_modified =date;
+        System.out.println(date);
         ContentDO contentDO = new ContentDO(title,created,created,content,categories,author,gtm_create,gtm_modified);
         try {
             contentService.save(contentDO);

@@ -4,7 +4,7 @@ package com.zx.shark.model;
 import java.sql.Date;
 import java.util.List;
 
-public class MyException {
+public class MyException extends Exception{
     private Date date;
     private String message;  //错误消息
     private String className;  //错误的类

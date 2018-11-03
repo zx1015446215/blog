@@ -32,7 +32,6 @@ function login() {
       if (num == 200) {
         alert("欢迎"+res.data+"登录");
       window.location.href="/yummy/index_v1";
-      window.event.returnValue=false;
       } else if (num == 500) {
         var nb = res.msg;
         if (nb == 110) {

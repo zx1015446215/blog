@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**","/login/**","/css/**","/images/**","/img/**","/blog/**","/fonts/**").permitAll()
                 .mvcMatchers("/index/**","/comment/**").permitAll()
                 .mvcMatchers("/yummy/**","/book/**","/user/**","/role/**").hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
-                .mvcMatchers("/*").permitAll()
+                .mvcMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

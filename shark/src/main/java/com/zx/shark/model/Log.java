@@ -2,13 +2,14 @@ package com.zx.shark.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashMap;
 
 /**
  * 日志记录
  */
 public class Log implements Serializable {
-    private Date date;
+    private Date startDate;    //请求开始时间
+    private Date endDate;   //结束时间
+    private Long date;  //过程时间
     private String ip;   //请求的ip
     private String principal;  //用户的凭证
     private String url;  //请求的url
@@ -16,34 +17,39 @@ public class Log implements Serializable {
     private String class_method;  //请求的类方法
     private Object[] args;   //请求的参数
     private String response;  //返回的内容
+    private Exception e;
 
-    public Log(Date date , String ip,String principal, String url, String method, String class_method, Object[] args, String response) {
-        this.ip = ip;
-        this.principal = principal;
-        this.url = url;
-        this.method = method;
-        this.class_method = class_method;
-        this.args = args;
-        this.response = response;
+
+    public Exception getE() {
+        return e;
     }
 
-    public Date getDate() {
+    public void setE(Exception e) {
+        this.e = e;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Long date) {
         this.date = date;
-    }
-
-    public String getPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(String principal) {
-        this.principal = principal;
-    }
-
-    public Log() {
     }
 
     public String getIp() {
@@ -52,6 +58,14 @@ public class Log implements Serializable {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public String getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(String principal) {
+        this.principal = principal;
     }
 
     public String getUrl() {

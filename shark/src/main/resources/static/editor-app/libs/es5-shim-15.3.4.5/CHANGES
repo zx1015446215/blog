@@ -68,7 +68,7 @@
 
 1.0.0
  - fixed Date.toISODate, using UTC accessors, as in
-   http://code.google.com/p/v8/source/browse/trunk/src/date.js?r=6120#986
+   http://code.google.com/p/v8/source/browse/trunk/src/startDate.js?r=6120#986
    (arian)
 
 0.0.4
