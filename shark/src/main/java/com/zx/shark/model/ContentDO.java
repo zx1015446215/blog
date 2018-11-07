@@ -1,4 +1,6 @@
 package com.zx.shark.model;
+import javax.persistence.Entity;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -6,9 +8,10 @@ import java.sql.Timestamp;
 /**
  * 文本内容
  */
+
+
 public class ContentDO implements Serializable {
     private static final long serialVersionUID = 1L;
-
 
     private Long cid;
     //标题
@@ -27,6 +30,8 @@ public class ContentDO implements Serializable {
     private Integer comments_num;
     //状态
     private Integer status;
+    //点赞数量
+    private Integer likes_count;
     //作者
     private String author;
     //创建时间
@@ -67,6 +72,19 @@ public class ContentDO implements Serializable {
         this.author = author;
         this.gtm_create = gtm_create;
         this.gtm_modified = gtm_modified;
+    }
+
+    public ContentDO(Long cid, Integer likes_count){
+        this.cid = cid;
+        this.likes_count = likes_count;
+    }
+
+    public Integer getLikes_count() {
+        return likes_count;
+    }
+
+    public void setLikes_count(Integer likes_count) {
+        this.likes_count = likes_count;
     }
 
     /**

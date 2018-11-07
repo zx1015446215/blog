@@ -33,5 +33,37 @@ public class UserLike {
         this.likedPostId = likedPostId;
         this.status = status;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getLikedUserId() {
+        return likedUserId;
+    }
+
+    public void setLikedUserId(long likedUserId) {
+        this.likedUserId = likedUserId;
+    }
+
+    public long getLikedPostId() {
+        return likedPostId;
+    }
+
+    public void setLikedPostId(long likedPostId) {
+        this.likedPostId = likedPostId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
 

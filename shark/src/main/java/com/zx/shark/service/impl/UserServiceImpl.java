@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -69,5 +70,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Role findRoleById(long id) {
         return roleMapper.selectByUserId(id);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        List<User> users = userMapper.selectAll();
+        return users;
     }
 }

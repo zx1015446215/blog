@@ -4,11 +4,11 @@
 <mapper namespace="com.zx.shark.mapper.ContentDao">
 
 	<select id="get" resultType="com.zx.shark.model.ContentDO">
-		select `cid`,`title`,`created`,`modified`,`content`,`tags`,`categories`,`comments_num`,`status`,`author`,`gtm_create`,`gtm_modified` from blog_content where cid = #{value}
+		select `cid`,`title`,`created`,`modified`,`content`,`tags`,`categories`,`comments_num`,`status`,`author`,`likes_count`,`gtm_create`,`gtm_modified` from blog_content where cid = #{value}
 	</select>
 
 	<select id="list" resultType="com.zx.shark.model.ContentDO">
-		select `cid`,`title`,`created`,`modified`,`content`,`tags`,`categories`,`comments_num`,`status`,`author`,`gtm_create`,`gtm_modified`
+		select `cid`,`title`,`created`,`modified`,`content`,`tags`,`categories`,`comments_num`,`status`,`likes_count`,`author`,`gtm_create`,`gtm_modified`
 		from blog_content
         <where>
 		  		  <if test="cid != null and cid != ''"> and cid = #{cid} </if>
@@ -22,6 +22,7 @@
 		  		  <if test="commentsNum != null and commentsNum != ''"> and comments_num = #{comments_num} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		  <if test="author != null and author != ''"> and author = #{author} </if>
+			      <if test="likes_count != null and likes_count != ''"> and likes_count = #{likes_count} </if>
 		  		  <if test="gtm_create != null and gtm_create != ''"> and gtm_create = #{gtm_create} </if>
 		  		  <if test="gtm_modified != null and gtm_modified != ''"> and gtm_modified = #{gtm_modified} </if>
 		  		</where>
@@ -52,6 +53,7 @@
 		  		  <if test="commentsNum != null and commentsNum != ''"> and comments_num = #{comments_num} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		  <if test="author != null and author != ''"> and author = #{author} </if>
+			      <if test="likes_count != null and likes_count != ''"> and likes_count = #{likes_count} </if>
 		  		  <if test="gtm_create != null and gtm_create != ''"> and gtm_create = #{gtm_create} </if>
 		  		  <if test="gtm_modified != null and gtm_modified != ''"> and gtm_modified = #{gtm_modified} </if>
 		  		</where>
@@ -100,6 +102,7 @@
 			<if test="comments_num != null">`comments_num` = #{comments_num}, </if>
 			<if test="status != null">`status` = #{status}, </if>
 			<if test="author != null">`author` = #{author}, </if>
+			<if test="likes_count != null and likes_count != ''"> and likes_count = #{likes_count} </if>
 			<if test="gtm_create != null">`gtm_create` = #{gtm_create}, </if>
 			<if test="gtm_modified != null">`gtm_modified` = #{gtm_modified}</if>
 		</set>

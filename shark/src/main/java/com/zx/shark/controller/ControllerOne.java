@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -20,6 +21,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -57,7 +59,9 @@ public class ControllerOne {
         String pass = DigestUtils.md5DigestAsHex(password.getBytes());
         //获取随机用户id
         Long user_id=Long.valueOf(new SimpleDateFormat("ssSSS").format(new Date()).toString());
-        User user=new User(user_id,username,pass,email);
+        Timestamp createTime = new Timestamp(new Date().getTime());
+        Timestamp updateTime = createTime;
+        User user=new User(user_id,username,pass,email,null,createTime,user_id,updateTime,user_id);
         //用户信息和权限信息关联
         try {
             userServiceImpl.registerUser(user);

@@ -5,6 +5,8 @@ import com.zx.shark.likes.model.UserLike;
 import com.zx.shark.likes.repository.UserLikeRepository;
 import com.zx.shark.likes.service.LikedService;
 import com.zx.shark.likes.service.RedisService;
+import com.zx.shark.model.ContentDO;
+import com.zx.shark.service.ContentService;
 import com.zx.shark.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,8 @@ public class LikedServiceImpl implements LikedService {
     UserLikeRepository userLikeRepository;
     @Autowired
     RedisService redisService;
+    @Autowired
+    ContentService contentService;
     /**
      * 保存点赞记录
      * @param userLike
@@ -92,7 +96,12 @@ public class LikedServiceImpl implements LikedService {
     public void transLikedCountFromRedis2DB() {
         List<LikedCountDTO> list = redisService.getLikedCountFromRedis();
         //需要在文章数据表上进行修改，添加点赞数量属性
-
+         for (LikedCountDTO likedCountDTO : list){
+             long likedUserId = likedCountDTO.getLikedUserId();
+             int count = likedCountDTO.getCount();
+             //更新点赞数量
+             contentService.update(new ContentDO(likedUserId,count));
+         }
 
     }
 }

@@ -6,6 +6,7 @@ import com.zx.shark.model.Tree;
 import com.zx.shark.model.User;
 import com.zx.shark.service.CommentService;
 import com.zx.shark.utils.BuildTree;
+import com.zx.shark.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -52,27 +53,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void saveComment(Long parent_id,String content) {
-        Long user_id;
-        //从SecurityContextHolder中获取用户名
-        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
-        String username = String.valueOf(authentication.getPrincipal());
-        //从redis缓存中查找用户信息
-        ValueOperations<String,User> operations=redisTemplate.opsForValue();
-        boolean haskey= redisTemplate.hasKey(username);
-        //若缓存中存在
-        if(haskey){
-            User user=operations.get(username);
-            user_id = user.getId();
-        }else if(userService.findUserByUsername(username) != null){
-            //根据用户名从数据库中获取用户的id
-            User user = userService.findUserByUsername(username);
-            user_id = user.getId();
-        }else{
-            user_id=8888L;
-        }
+        Long user_id =new UserUtils().GetUserMessage();  //获取用户信息
         Comment comment = new Comment(cid,user_id,parent_id,content,new Timestamp(System.currentTimeMillis()));
-
         commentMapper.saveComment(comment);
 
     }
+
+
 }
