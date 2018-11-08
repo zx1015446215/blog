@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,13 +58,14 @@ public class BookController {
 
     /**
      * 存储书籍
+     * @param request
      * @return
      */
     @RequestMapping("savebook")
     @ResponseBody
     public JSONResult savebook(@RequestParam String name,@RequestParam String type,@RequestParam String author,
                                @RequestParam String company,@RequestParam String publishtime,@RequestParam int total){
-        Timestamp date = Timestamp.valueOf(publishtime);
+        Date date = Date.valueOf(publishtime);
         Book book = new Book(name,type,author,company,date,total);
         try {
             bookMapper.insertBook(book);

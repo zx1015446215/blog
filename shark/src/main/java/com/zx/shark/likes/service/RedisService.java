@@ -52,5 +52,4 @@ public interface RedisService {
      */
     List<LikedCountDTO> getLikedCountFromRedis();
 
-
 }

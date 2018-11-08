@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -68,13 +67,8 @@ public class LoginController {
         String code = request.getParameter("code");
         String accessToken = getAccessToken(code);
         JSONObject userMessage = getUserMessage(accessToken);
-        //从返回的信息中获取所需信息
-        Long id = (Long) userMessage.get("id");
-        String username = (String) userMessage.get("login");
-        String email = (String) userMessage.get("email");
-        Timestamp createTime = (Timestamp) userMessage.get("created_at");
-        Timestamp updateTime = (Timestamp) userMessage.get("updated_at");
-        userService.registerUser(new User(id,username,"0000",email,null,createTime,id,updateTime,id));
+        Integer id = (Integer) userMessage.get("id");
+        userService.registerUser(new User(Long.valueOf(id),(String)userMessage.get("login"),"0000",(String) userMessage.get("email")));
 
         SecurityContext securityContext = new SecurityContext() {
             @Override

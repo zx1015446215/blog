@@ -114,6 +114,4 @@ public class MenuDO implements Serializable{
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
     }
-
-    
 }

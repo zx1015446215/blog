@@ -1,7 +1,6 @@
 package com.zx.shark.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 public class Book {
     private Long id;
@@ -9,11 +8,11 @@ public class Book {
     private String author;  //作者
     private String type;   //类别
     private String company;  //出版社
-    private Timestamp publishtime;    //出版时间
+    private Date publishtime;    //出版时间
     private int remain;    //剩余数量
     private int total;     //总数
     private Boolean flag = false;    //判断用户是否预约了此书
-    public Book(Long id,String name,String type ,String author, String company, Timestamp publishtime, int remain, int total) {
+    public Book(Long id,String name,String type ,String author, String company, Date publishtime, int remain, int total) {
 
         this.name = name;
         this.type=type;
@@ -24,7 +23,7 @@ public class Book {
         this.total = total;
     }
 
-    public Book(String name,String type, String author, String company, Timestamp publishtime, int total) {
+    public Book(String name,String type, String author, String company, Date publishtime, int total) {
         this.name = name;
         this.type=type;
         this.author = author;
@@ -88,11 +87,11 @@ public class Book {
         this.company = company;
     }
 
-    public Timestamp getPublishtime() {
+    public Date getPublishtime() {
         return publishtime;
     }
 
-    public void setPublishtime(Timestamp publishtime) {
+    public void setPublishtime(Date publishtime) {
         this.publishtime = publishtime;
     }
 
